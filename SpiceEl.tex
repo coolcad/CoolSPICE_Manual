@@ -82,7 +82,151 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \subsection{Behavioral Sources}
 \label{subsec_sceadm_behavioralsources}
 
+\begin{longtable}{c c}
 
+\hline\hline %inserts double horizontal lines
+Function Name & Description \\ [0.5ex] % inserts table
+%heading
+\hline % inserts single horizontal line
+abs(x) & Absolute value of x \\ \\ % inserting body of the table
+
+absdelay(x, del), delat(x, del) & \begin{minipage}{20em}
+Value of x del amount of independent units before the current value of the independent variable. If the independent variable is less than the delay parameter del zero.
+\end{minipage}\\ \\
+
+arcsin(x), asin(x), arccos(x),\\ 
+acos(x), arctan(x), atan(x) & \begin{minipage}{20em}
+Inverse trigonometric functions. Note these functions give the real part only.
+\end{minipage}\\ \\
+
+asinh(x), acosh(x), atanh(x) & \begin{minipage}{20em}
+Inverse hyperbolic trigonometric functions. Note these functions give the real part only.
+\end{minipage}\\ \\
+
+atan2(y, x) & \begin{minipage}{20em}
+Fourth quadrant inverse tangent of y$/$x
+\end{minipage}\\ \\
+
+buf(x) & \begin{minipage}{20em}
+(x$>$0.5) ? 1.0 : 0.0
+\end{minipage}\\ \\
+
+ceil(x) & \begin{minipage}{20em}
+Smallest integer that is greater than or equal to x
+\end{minipage}\\ \\
+
+dd(x) & \begin{minipage}{20em}
+ddt(x) derivative of x against the independent variable
+\end{minipage}\\ \\
+
+exp(x) & \begin{minipage}{20em}
+e$\rm{^x}$
+\end{minipage}\\ \\
+
+floor(x), int(x) & \begin{minipage}{20em}
+Largest integer that is less than or equal to x
+\end{minipage}\\ \\
+
+hypot(x, y) & \begin{minipage}{20em}
+sqrt((x$\rm{^2}$) + (y$\rm{^2}$))
+\end{minipage}\\ \\
+
+idt(x[,o[,r]]), sdt(x[,o[r]]) & \begin{minipage}{20em}
+Integral of x against the independent variable. 'o' is an optional offset parameter. 'r' is an option reset parameter. If 'r' is true the integral resets to 'o'.
+\end{minipage}\\ \\
+
+inv(x) & \begin{minipage}{20em}
+(x$>$0.5) ? 0.0 : 1.0
+\end{minipage}\\ \\
+
+limit(x, y, z) & \begin{minipage}{20em}
+If y $\leq$ x then x, If x $<$ y $<$ z then y, if x $<$ y and z $\leq$ y then z.  
+\end{minipage}\\ \\
+
+ln(x), log(x) & \begin{minipage}{20em}
+Natural log of x
+\end{minipage}\\ \\
+
+log10(x) & \begin{minipage}{20em}
+Log base ten of x
+\end{minipage}\\ \\
+
+max(x, y) & \begin{minipage}{20em}
+x $>$ y ? x : y
+\end{minipage}\\ \\
+
+min(x, y) & \begin{minipage}{20em}
+x $<$ y ? x : y
+\end{minipage}\\ \\
+
+pow(x, y) & \begin{minipage}{20em}
+x raised to the power of y (pow from C runtime library)
+\end{minipage}\\ \\
+
+pwr(x, y) & \begin{minipage}{20em}
+pow(fabs(x),y), note that this function gives only the real part of the answer
+\end{minipage}\\ \\
+
+pwrs(x, y) & \begin{minipage}{20em}
+sgn(x)$\cdot$abs(x)$\rm{^y}$
+\end{minipage}\\ \\
+
+pwl(x, $\rm{x_1,y_1, x_2,y_2}$...) & \begin{minipage}{20em}
+Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
+\end{minipage}\\ \\
+
+rand(x), random(x) & \begin{minipage}{20em}
+Randomly generated real number y such that \\0 $<$ y $<$ 1 depending on the integer value of x
+\end{minipage}\\ \\
+
+round(x) & \begin{minipage}{20em}
+Round to nearest integer, x.5 rounds up.
+\end{minipage}\\ \\
+
+sgn(x) & \begin{minipage}{20em}
+1.0 for x $>$ 0, 0.0 for x equal to 0, -1.0 for x $<$ 0 
+\end{minipage}\\ \\
+
+sin(x), cos(x), tan(x) & \begin{minipage}{20em}
+Trigonometric functions
+\end{minipage}\\ \\
+
+sinh(x), cos(x), tanh(x) & \begin{minipage}{20em}
+Hyperbolic trigonometric functions
+\end{minipage}\\ \\
+
+sqrt(x) & \begin{minipage}{20em}
+y=$\sqrt{\rm{x}}$, note that this function gives only the real part of the answer
+\end{minipage}\\ \\
+
+%table(x, x1,y1, x2,y2, ... ) & \begin{minipage}{20em}
+%Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
+%\end{minipage}\\ \\
+
+ternary\_fcn(x, y, z), if(x, y, z) & \begin{minipage}{20em}
+x ? y : z
+\end{minipage}\\ \\
+
+u(x) & \begin{minipage}{20em}
+Unit step, x $>$ 0 ? 1 : 0
+\end{minipage}\\ \\
+
+unif(nom, rvar) & \begin{minipage}{20em}
+Nominal value plus relative variation (to nominal) uniformly distributed between $\pm$rvar
+\end{minipage}\\ \\
+
+uramp(x) & \begin{minipage}{20em}
+x $>$ 0 ? x : 0
+\end{minipage}\\ \\
+
+white(x) & \begin{minipage}{20em}
+Randomly generated number y such that -0.5 $<$ y $<$ 0.5
+\end{minipage}\\ \\[1ex] % [1ex] adds vertical space
+\hline %inserts single line
+
+\caption{Behavioral source functions}
+\label {tab:paramfuncs}
+\end{longtable}
 
 \section{Active Elements}
 \label{sec_sceadm_activeelements}

@@ -325,19 +325,20 @@ abs(x) & Absolute value of x \\ \\ % inserting body of the table
 
 agauss(nom, avar, sigma) & \begin{minipage}{20em}
   Nominal value plus variation drawn from Gaussian distribution 
-	with mean 0 and standard deviation avar (absolute), divided by sigma
+	with mean 0 and standard deviation absolute value of avar, divided by sigma
 \end{minipage}\\ \\
 
-arctan(x) & \begin{minipage}{20em}
-atan(x), kept for compatibility
+arcsin(x), asin(x), arccos(x),\\ 
+acos(x), arctan(x), atan(x), & \begin{minipage}{20em}
+Inverse trigonometric functions. Note these functions give the real part only.
 \end{minipage}\\ \\
 
 asinh(x), acosh(x), atanh(x) & \begin{minipage}{20em}
-Arc hyperbolic trigonometric functions
+Inverse hyperbolic trigonometric functions. Note these functions give the real part only.
 \end{minipage}\\ \\
 
 atan2(y, x) & \begin{minipage}{20em}
-Fourth quadrant arc tangent of y$/$x
+Fourth quadrant inverse tangent of y$/$x
 \end{minipage}\\ \\
 
 buf(x) & \begin{minipage}{20em}
@@ -345,15 +346,15 @@ buf(x) & \begin{minipage}{20em}
 \end{minipage}\\ \\
 
 cbrt(x) & \begin{minipage}{20em}
-Cubed root of the absolute value of x
+Cube root of x
 \end{minipage}\\ \\
 
 ceil(x) & \begin{minipage}{20em}
-Smallest integer that is grater than or equal to x
+Smallest integer that is greater than or equal to x
 \end{minipage}\\ \\
 
 defined(symbol) & \begin{minipage}{20em}
-Returns 1 if symbol is defined, else 0
+1 if symbol is defined, else 0
 \end{minipage}\\ \\
 
 exp(x) & \begin{minipage}{20em}
@@ -361,7 +362,7 @@ e$\rm{^x}$
 \end{minipage}\\ \\
 
 flat(x) & \begin{minipage}{20em}
-Random number between -x and x with uniform distribution
+Randomly generated number between -x and x with uniform distribution
 \end{minipage}\\ \\
 
 floor(x), int(x) & \begin{minipage}{20em}
@@ -389,15 +390,15 @@ Natural log of x
 \end{minipage}\\ \\
 
 max(x, y) & \begin{minipage}{20em}
-x if x $>$ y else y
+x $>$ y ? x : y
 \end{minipage}\\ \\
 
 mc(x, y) & \begin{minipage}{20em}
-A random number between x$\cdot$(1+y) and x$\cdot$(1-y) with uniform distribution
+Randomly generated real number y such that  x$\cdot$(1-y) $<$ y $<$ x$\cdot$(1+y) with uniform distribution
 \end{minipage}\\ \\
 
 min(x, y) & \begin{minipage}{20em}
-x if x $<$ y else y
+x $<$ y ? x : y
 \end{minipage}\\ \\
 
 nint(x), round(x) & \begin{minipage}{20em}
@@ -409,7 +410,7 @@ x raised to the power of y (pow from C runtime library)
 \end{minipage}\\ \\
 
 pwr(x, y) & \begin{minipage}{20em}
-pow(fabs(x),y)
+pow(fabs(x),y), note that this function gives only the real part of the answer
 \end{minipage}\\ \\
 
 pwrs(x, y) & \begin{minipage}{20em}
@@ -417,7 +418,7 @@ sgn(x)$\cdot$abs(x)$\rm{^y}$
 \end{minipage}\\ \\
 
 rand(x), random(x) & \begin{minipage}{20em}
-Random number between 0 and 1 depending on the integer value of x
+Randomly generated real number y such that 0 $<$ y $<$ 1 depending on the integer value of x
 \end{minipage}\\ \\
 
 sgn(x) & \begin{minipage}{20em}
@@ -437,11 +438,11 @@ y=x$\rm{^2}$
 \end{minipage}\\ \\
 
 sqrt(x) & \begin{minipage}{20em}
-y=$\sqrt{\rm{x}}$
+y=$\sqrt{\rm{x}}$, note that this function gives only the real part of the answer
 \end{minipage}\\ \\
 
-table(x, a, b, c, d, ... ) & \begin{minipage}{20em}
-Interpolate a value for x based on a look up table given as a set of pairs of points
+table(x, $\rm{x_1,y_1, x_2,y_2}$, ... ) & \begin{minipage}{20em}
+Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
 \end{minipage}\\ \\
 
 ternary\_fcn(x, y, z), if(x, y, z) & \begin{minipage}{20em}
@@ -449,7 +450,7 @@ x ? y : z
 \end{minipage}\\ \\
 
 u(x) & \begin{minipage}{20em}
-Unit step 1 if x $>$ 0 else 0
+Unit step, x $>$ 0 ? 1 : 0
 \end{minipage}\\ \\
 
 unif(nom, rvar) & \begin{minipage}{20em}
@@ -457,11 +458,11 @@ Nominal value plus relative variation (to nominal) uniformly distributed between
 \end{minipage}\\ \\
 
 uramp(x) & \begin{minipage}{20em}
-x if x $>$ 0 else 0
+x $>$ 0 ? x : 0
 \end{minipage}\\ \\[1ex] % [1ex] adds vertical space
 \hline %inserts single line
 
-\caption{.param funcs}
+\caption{.param functions}
 \label {tab:paramfuncs}
 \end{longtable}
 
