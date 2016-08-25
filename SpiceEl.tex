@@ -1,0 +1,131 @@
+\chapter{SPICE Circuit Elements and Device Models}
+
+\label{chap_spicecircuitelementsanddevicemodels_sceadm}
+
+\section{SPICE Suffixes}
+\label{subsec_sceadm_suffixes}
+
+These suffixes are used in specifying parameter values for elements.
+
+\begin{tabular}{lll} 
+\textit{suffix} & \textit{name} & \textit{magnitude} \\ \hline \\ \vspace{-0.8\parskip}
+a & atto- & $10^{-18}$ \\
+f & femto- & $10^{-15}$ \\
+p & pico- & $10^{-12}$ \\
+n & nano- & $10^{-9}$ \\
+u & micro- & $10^{-6}$ \\
+m & milli- & $10^{-3}$ \\
+k & kilo- & $10^{3}$ \\
+meg & mega- & $10^{6}$ \\
+g & giga- & $10^{9}$ \\
+t & tera- & $10^{12}$ \\
+\end{tabular}
+
+\clearpage
+
+\section{SPICE Element Identifiers}
+\label{subsec_sceadm_elementidentifiers}
+
+The SPICE netlist line for each type of circuit element must start with a specific character.  Here we list the characters all together; examples are presented throughout the rest of this chapter for each element type.
+
+\begin{tabular}{lp{14cm}}
+\textit{character} & \textit{element type}\\ \hline \\ \vspace{-0.8\parskip}
+\texttt{R} & Resistors (Section \ref{subsec_sceadm_resistors}) \\
+\texttt{C} & Capacitors (Section \ref{subsec_sceadm_capacitors}) \\
+\texttt{L} & Inductors (Section \ref{subsec_sceadm_inductors}) \\
+\texttt{K} & Coupled Inductors (Section \ref{subsec_sceadm_inductors}) \\
+\texttt{V} & Independent Voltage Sources (Section \ref{subsec_sceadm_independentsources}) \\
+\texttt{I} & Independent Current Sources (Section \ref{subsec_sceadm_independentsources}) \\
+\texttt{G} & Voltage-Controlled Current Sources (Section \ref{subsec_sceadm_lineardependentsources}) \\
+\texttt{E} & Voltage-Controlled Voltage Sources (Section \ref{subsec_sceadm_lineardependentsources}) \\
+\texttt{F} & Current-Controlled Current Sources (Section \ref{subsec_sceadm_lineardependentsources}) \\
+\texttt{H} & Current-Controlled Voltage Sources (Section \ref{subsec_sceadm_lineardependentsources}) \\ 
+\texttt{B} & Nonlinear Dependent (Behavioral) Sources (Section \ref{subsec_sceadm_behavioralsources}) \\
+\texttt{D} & Diodes (Section \ref{subsec_sceadm_diodes}) \\
+\texttt{Q} & BJTs (Section \ref{subsec_sceadm_bjts}) \\
+\texttt{M} & MOSFETs (Section \ref{subsec_sceadm_mosfets}) \\
+\texttt{Z} & MESFETs (Section \ref{subsec_sceadm_otheractiveelements}) \\
+\texttt{J} & JFETs (Section \ref{subsec_sceadm_otheractiveelements}) \\
+\texttt{S, W} & Switches (Section \ref{subsec_sceadm_switches}) \\
+\texttt{T} & Transmission Lines (Section \ref{subsec_sceadm_transmissionlines}) \\
+
+\end{tabular}
+
+\section{Passive Elements}
+\label{sec_sceadm_passiveelements}
+
+\subsection{Resistors}
+\label{subsec_sceadm_resistors}
+
+\subsection{Capacitors}
+\label{subsec_sceadm_capacitors}
+
+\subsection{Inductors}
+\label{subsec_sceadm_inductors}
+
+\textit{\textbf{Coupled Inductors}}
+
+\subsection{Behavioral Models}
+\label{subsec_sceadm_behavioralmodels}
+
+{\Large etc....}
+
+\section{Sources}
+\label{sec_sceadm_sources}
+
+\subsection{Independent Sources}
+\label{subsec_sceadm_independentsources}
+
+\subsection{Linear Dependent Sources}
+\label{subsec_sceadm_lineardependentsources}
+
+\subsection{Behavioral Sources}
+\label{subsec_sceadm_behavioralsources}
+
+
+
+\section{Active Elements}
+\label{sec_sceadm_activeelements}
+
+\subsection{Diodes}
+\label{subsec_sceadm_diodes}
+
+\subsection{BJTs}
+\label{subsec_sceadm_bjts}
+
+\subsection{MOSFETs}
+\label{subsec_sceadm_mosfets}
+
+\subsection{Other Active Elements}
+\label{subsec_sceadm_otheractiveelements}
+
+\textbf{\textit{JFETs}}
+
+
+\textbf{\textit{MESFETs}}
+
+
+
+\section{Other Elements}
+\label{sec_sceadm_otherelements}
+
+\subsection{Switches}
+\label{subsec_sceadm_switches}
+
+\subsection{Transmission Lines}
+\label{subsec_sceadm_transmissionlines}
+
+\section{Built-in Subcircuits and Behavioral Elements in CoolSPICE}
+\label{sec_sceadm_builtinsubcircuits}
+
+\subsection{Probes}
+\label{subsec_sceadm_probes}
+
+Probes, which are found in the \textsf{Analog} library of CoolSPICE, are described in detail in Section \ref{subsec_satco_savestatement}, which is about their associated \texttt{.save} statement.  
+
+\subsection{The \texttt{.include} Statement}
+\label{sec_sceadm_includestatement}
+
+\subsection{The \texttt{.subckt} Statement and Subcircuit Definition}
+\label{sec_sceadm_subcktstatement}
+
