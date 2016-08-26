@@ -689,6 +689,7 @@ Analog
 \subsection{Linear Dependent Sources}
 \label{subsec_sceadm_lineardependentsources}
 
+\newpage
 \subsection{Behavioral Sources}
 \label{subsec_sceadm_behavioralsources}
 
@@ -737,7 +738,7 @@ Analog
 Statement & Explanation \\ [0.5ex]
 \hline \\ %\vspace{-0.8\parskip} 
 
-\begin{minipage}{20em}
+\begin{minipage}{15em}
 \texttt{B1 0 1 I=cos(v(1))+sin(v(2))}
 \end{minipage}& 
 \begin{minipage}{20em}
@@ -745,7 +746,7 @@ Insert current source B1, with current equal to the expression cos(v(1))+sin(v(2
 \end{minipage}
 \\ \\
 
-\begin{minipage}{20em}
+\begin{minipage}{15em}
 B2 0 1 V=ln(cos(log(v(1,2)\^{}2)))-v(2)\^{}v(1)
 \end{minipage} &
 \begin{minipage}{20em}
@@ -753,7 +754,7 @@ Insert voltage source B2, with voltage equal to the expression V=ln(cos(log(v(1,
 \end{minipage}
 \\ \\
 
-\begin{minipage}{20em}
+\begin{minipage}{15em}
 B3 0 1 V=V(1) $<$ $\left\{\rm{Vlow}\right\}$ ? $\left\{\rm{Vlow}\right\}$ : V(1) $>$ $\left\{\rm{Vhigh}\right\}$ ? $\left\{\rm{Vhigh}\right\}$ : V(1)
 \end{minipage} &
 \begin{minipage}{20em}
