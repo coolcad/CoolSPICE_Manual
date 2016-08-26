@@ -104,8 +104,12 @@ Analog
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
-\texttt{r1 1 0 1K} & {\small Insert resistor r1, with resistance 1K$\Omega$, between nets 1 and 0} \\
-\texttt{r1 1 0 1K m=2 scale=3} & {\small Insert resistor r1, with resistance 1K$\Omega \times \frac{3}{2}$, between nets 1 and 0}
+\begin{minipage}{15em}\texttt{r1 1 0 1K}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert resistor r1, with resistance 1K$\Omega$, between nets 1 and 0}\end{minipage}  \\ \\ 
+\begin{minipage}{15em}\texttt{r1 1 0 1K m=2 scale=3}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert resistor r1, with resistance 1K$\Omega \times \frac{3}{2}$, between nets 1 and 0}\end{minipage} 
 \end{longtable}
 
 \textbf{\textit{Remarks:}}
@@ -151,9 +155,9 @@ RXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
-			\parbox{15em}{\texttt{r1 1 0 1K res tc1=0.01}\\ 
-			\texttt{.model res R m=2}}
-			& \parbox{25em}{{\small Insert resistor r1, with resistance 1K$\Omega \times \frac{1}{2}$, between\\nets 1 and 0}} 
+			\begin{minipage}{15em}{\texttt{r1 1 0 1K res tc1=0.01}\\ 
+			\texttt{.model res R m=2}}\end{minipage}
+			& \begin{minipage}{15em}{{\small Insert resistor r1, with resistance 1K$\Omega \times \frac{1}{2}$, between nets 1 and 0}}\end{minipage} 
 \end{longtable}
 
 \inserttip{If it is specified for an instance, [INLINE PARAMS] override [MODEL PARAMS].} 
@@ -199,9 +203,9 @@ RXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\parbox{15em}{\texttt{r1 1 0 res l=2u w=1u} \\
-			\texttt{.model res R (rsh=10\\+narrow=0.1u short=0.05u)}} 
-			& \parbox{25em}{{\small Insert resistor r1, with resistance 10$\times\frac{2u-0.05u}{1u-0.1u}\Omega$,\\between nets 1 and 0}} 
+		\begin{minipage}{15em}{\texttt{r1 1 0 res l=2u w=1u} \\
+			\texttt{.model res R (rsh=10\\+narrow=0.1u short=0.05u)}}\end{minipage} 
+			& \begin{minipage}{15em}{{\small Insert resistor r1, with resistance 10$\times\frac{2u-0.05u}{1u-0.1u}\Omega$, between nets 1 and 0}}\end{minipage} 
 \end{longtable}
 
 \inserttip{If [VAL] is specified, it will override resistance calculated using the geometrical effects.} 
@@ -239,8 +243,8 @@ RXX & [N+] [N-] R= [EXPRESSION] [INLINE PARAMS]
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\texttt{r1 1 0 r={v(2)*0.1}} 
-			& {\small Insert resistor r1, with resistance v(2)$\times$0.1$\Omega$, between nets 1 and 0} 
+		\begin{minipage}{15em}\texttt{r1 1 0 r={v(2)*0.1}}\end{minipage} 
+			& \begin{minipage}{15em}{\small Insert resistor r1, with resistance v(2)$\times$0.1$\Omega$, between nets 1 and 0}\end{minipage} 
 \end{longtable}
 }
 
@@ -302,8 +306,10 @@ Analog
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
-\texttt{c1 1 0 1p} & {\small Insert capacitor c1, with capacitance 1pF, between nets 1 and 0} \\
-\texttt{c1 1 0 1K m=2 scale=3} & {\small Insert capacitor c1, with capacitance 1pF $\times$2$\times$3, between nets 1 and 0}
+\begin{minipage}{15em}\texttt{c1 1 0 1p}\end{minipage} & 
+\begin{minipage}{15em}{\small Insert capacitor c1, with capacitance 1pF, between nets 1 and 0}\end{minipage} \\
+\begin{minipage}{15em}\texttt{c1 1 0 1K m=2 scale=3}\end{minipage} & 
+\begin{minipage}{15em}{\small Insert capacitor c1, with capacitance 1pF $\times$2$\times$3, between nets 1 and 0}\end{minipage}
 \end{longtable}
 
 \textbf{\textit{Remarks:}}
@@ -360,9 +366,9 @@ CXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
-			\parbox{15em}{\texttt{c1 1 0 1p cap tc1=0.01}\\ 
-			\texttt{.model cap C m=2}}
-			& \parbox{25em}{{\small Insert capacitor c1, with capacitance 1pF $\times$2, between\\nets 1 and 0}} 
+			\begin{minipage}{15em}{\texttt{c1 1 0 1p cap tc1=0.01}\\ 
+			\texttt{.model cap C m=2}}\end{minipage}
+			& \begin{minipage}{15em}{{\small Insert capacitor c1, with capacitance 1pF $\times$2, between nets 1 and 0}}\end{minipage} 
 \end{longtable}
 
 \inserttip{.ic applies only if uic is used in conjunction with .tran.} 
@@ -416,10 +422,10 @@ CXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\parbox{15em}{\texttt{c1 1 0 cap l=2u w=1u} \\
-			\texttt{.model cap C (cj=1u cjsw=1p)}} 
-			& \parbox{25em}{{\small Insert capacitor c1, with capacitance 
-			1uF/m$^{2}\times\rm{l}\times\rm{w}$\\+ 1pF/m $\times{2}\times\rm{l}\times\rm{w}$, between nets 1 and 0}} 
+		\begin{minipage}{15em}{\texttt{c1 1 0 cap l=2u w=1u} \\
+			\texttt{.model cap C (cj=1u cjsw=1p)}}\end{minipage} 
+			& \begin{minipage}{15em}{{\small Insert capacitor c1, with capacitance 
+			1uF/m$^{2}\times\rm{l}\times\rm{w}$ + 1pF/m $\times{2}\times\rm{l}\times\rm{w}$, between nets 1 and 0}}\end{minipage}  
 \end{longtable}
 
 \textbf{\textit{Remarks:}}
@@ -461,8 +467,8 @@ CXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\texttt{c1 1 0 c={v(2)*0.1}} 
-			& {\small Insert capacitor c1, with capacitance v(2)$\times$0.1F, between nets 1 and 0} 
+		\begin{minipage}{15em}\texttt{c1 1 0 c={v(2)*0.1}}\end{minipage} 
+			& \begin{minipage}{15em}{\small Insert capacitor c1, with capacitance v(2)$\times$0.1F, between nets 1 and 0}\end{minipage} 
 \end{longtable}
 }
 
@@ -521,8 +527,10 @@ Analog
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
-\texttt{l1 1 0 1n} & {\small Insert inductor l1, with inductance 1nH, between nets 1 and 0} \\
-\texttt{l1 1 0 1n m=2} & {\small Insert inductor l1, with inductance 1nF $\times$2, between nets 1 and 0}
+\begin{minipage}{15em}\texttt{l1 1 0 1n}\end{minipage} & 
+\begin{minipage}{15em}{\small Insert inductor l1, with inductance 1nH, between nets 1 and 0}\end{minipage} \\ \\
+\begin{minipage}{15em}\texttt{l1 1 0 1n m=2}\end{minipage} & 
+\begin{minipage}{15em}{\small Insert inductor l1, with inductance 1nF $\times$2, between nets 1 and 0}\end{minipage}
 \end{longtable}
 
 \textbf{\textit{Remarks:}}
@@ -579,9 +587,12 @@ LXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
-			\parbox{15em}{\texttt{l1 1 0 1n myind tc1=0.01}\\ 
-			\texttt{.model myind L m=2}}
-			& \parbox{25em}{{\small Insert inductor l1, with inductance 1nH $\times$0.5, between\\nets 1 and 0}} 
+			\begin{minipage}{15em}{\texttt{l1 1 0 1n myind tc1=0.01}\\ 
+			\texttt{.model myind L m=2}}\end{minipage}
+			& \begin{minipage}{15em}
+			{{\small Insert inductor l1, with inductance 1nH $\times$0.5, between nets 1 and 0}}
+			\end{minipage}
+				
 \end{longtable}
 
 \inserttip{.ic applies only if uic is used in conjunction with .tran.} 
@@ -622,8 +633,8 @@ LXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\texttt{l1 1 0 l={v(2)*0.1}} 
-			& {\small Insert inductor l1, with inductance v(2)$\times$0.1H, between nets 1 and 0} 
+		\begin{minipage}{15em}\texttt{l1 1 0 l={v(2)*0.1}}\end{minipage} 
+			& \begin{minipage}{15em}{\small Insert inductor l1, with inductance v(2)$\times$0.1H, between nets 1 and 0}\end{minipage} 
 \end{longtable}
 }
 
@@ -665,21 +676,18 @@ Analog
 \textbf{\textit{Schematics Editor Option:}}
 
 "\textsf{Value}" is for assigning an alphanumeric number to \texttt{[VAL]}
-\newpage
+
 \textbf{\textit{Examples:}}
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
-\texttt{k1 l1 l2 0.99} & {\small Insert coupled inductor k1, with coupling 0.99, between nets 1 and 0} \\
+\begin{minipage}{15em}\texttt{k1 l1 l2 0.99}\end{minipage} & 
+\begin{minipage}{15em}{\small Insert coupled inductor k1, with coupling 0.99, between nets 1 and 0}\end{minipage} \\
 \end{longtable}
 
 
+
 \newpage
-\subsection{Behavioral Models}
-\label{subsec_sceadm_behavioralmodels}
-
-{\Large etc....}
-
 \section{Sources}
 \label{sec_sceadm_sources}
 
