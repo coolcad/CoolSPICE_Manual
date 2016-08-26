@@ -739,6 +739,8 @@ Analog
 
 "\textsf{I/V}" used to describe the current/voltage of the source with an expression \texttt{[I/V]}
 
+\inserttip{One can define the Current OR the voltage of a behavioral source but not both!}
+
 \textbf{\textit{Examples:}}
 
 \begin{longtable}{l l}
@@ -903,7 +905,7 @@ y=$\sqrt{\rm{x}}$, note that if x is less than zero this function returns the sq
 %\end{minipage}\\ \\
 
 ternary\_fcn(x, y, z), if(x, y, z), x ? y : z & \begin{minipage}{20em}
-x ? y : z, note the question mark must be followed by a blank space for the parser
+x ? y : z, (read as "if x then y else z") note the question mark must be followed by a blank space for the parser
 \end{minipage}\\ \\
 
 u(x) & \begin{minipage}{20em}
