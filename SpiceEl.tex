@@ -731,6 +731,7 @@ Analog
 
 "\textsf{I/V}" used to describe the current/voltage of the source with an expression \texttt{[I/V]}
 
+\\
 \textbf{\textit{Examples:}}
 
 \begin{longtable}{l l}
@@ -760,11 +761,16 @@ B3 0 1 V=V(1) $<$ $\left\{\rm{Vlow}\right\}$ ? $\left\{\rm{Vlow}\right\}$ : V(1)
 \begin{minipage}{20em}
 Insert voltage source B3, with voltage equal to the voltage of net/node 1 bounded by parameters 'Vlow' and 'Vhigh'
 \end{minipage}
+\\ \\
+
+\begin{minipage}{15em}
+Bfib 0 1 V=pwl({time}, 0,1, 1,1, 2,2, 3,3, 4,5, 5,8, 6,13, 7,21)
+\end{minipage} &
+\begin{minipage}{20em}
+Insert voltage source Bfib, with voltage equal to the Fibonacci series as a function of time.
+\end{minipage}
 
 \end{longtable}
-
-\textbf{\textit{Remarks:}}
-
 
 \textbf{\textit{Available functions for behavioral sources:}}
 
@@ -858,7 +864,7 @@ sgn(x)$\cdot$abs(x)$\rm{^y}$
 \end{minipage}\\ \\
 
 pwl(x, $\rm{x_1,y_1, x_2,y_2}$...) & \begin{minipage}{20em}
-Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
+Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls. Note that the x values of the points must increase monotonically.
 \end{minipage}\\ \\
 
 rand(x), random(x) & \begin{minipage}{20em}
@@ -913,6 +919,12 @@ Randomly generated number y such that -0.5 $<$ y $<$ 0.5
 \caption{Behavioral source functions}
 \label {tab:paramfuncs}
 \end{longtable}
+
+\textbf{\textit{Available logical operators for behavioral sources: $!=, <>, >=, <=, ==, >, <, ||, \&\&, !$ }}
+
+\subsection{Special Behavioral Source Variables time, temper, temp, hertz}
+\textbf{\textit{'time', 'temper' and 'temp' are available in transient for the simulation time and temperature. For example "B1 1 0 v=sin($\rm{\left\{time\right\}}$)" produces a sinusoidal voltage source. 'hertz' is available in AC analyses but may slow the simulation.}}
+
 
 \section{Active Elements}
 \label{sec_sceadm_activeelements}
