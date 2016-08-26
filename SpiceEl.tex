@@ -33,7 +33,7 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \texttt{R} & Resistors (Section \ref{subsec_sceadm_resistors}) \\
 \texttt{C} & Capacitors (Section \ref{subsec_sceadm_capacitors}) \\
 \texttt{L} & Inductors (Section \ref{subsec_sceadm_inductors}) \\
-\texttt{K} & Coupled Inductors (Section \ref{subsec_sceadm_inductors}) \\
+\texttt{K} & Coupled Inductors (Section \ref{subsec_sceadm_coupledinductors}) \\
 \texttt{V} & Independent Voltage Sources (Section \ref{subsec_sceadm_independentsources}) \\
 \texttt{I} & Independent Current Sources (Section \ref{subsec_sceadm_independentsources}) \\
 \texttt{G} & Voltage-Controlled Current Sources (Section \ref{subsec_sceadm_lineardependentsources}) \\
@@ -54,6 +54,7 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \section{Passive Elements}
 \label{sec_sceadm_passiveelements}
 
+\newpage
 \subsection{Resistors}
 \label{subsec_sceadm_resistors}
 
@@ -63,6 +64,8 @@ The SPICE netlist line for each type of circuit element must start with a specif
 RXX & [N+] [N-] [VAL] [INLINE PARAMS]
 \end{tabular}
 }
+
+\mymarginnote{Inline params\\are optional}
 
 \begin{longtable}{l l}
 \textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
@@ -109,11 +112,12 @@ Analog
 
 "\textsf{Value}" can be set to a model as described next by the alternative syntax. These alternatives can be used by editing the netlist using the netlist editor.
 \newline\noindent
-{\color{darkgreen}
+{\color{darkgray}
 \textbf{\textit{Alternative Syntax 1:}}
 
-\spicesyntax{\begin{tabular}{ll}
-RXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
+\spicesyntax{\begin{tabular}{l}
+RXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] R [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -131,7 +135,16 @@ RXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
 																					{\small dtemp : Temperature difference with ambient} \\
 																					{\small tc1 : Linear temperature coefficient} \\
 																					{\small tc2 : Quadratic temperature coefficient} \\
-																					{\small noisy : Noise on/off}\end{tabular} 
+																					{\small noisy : Noise on/off}\end{tabular} \\
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small m : Current multiplication factor} \\ 
+																					{\small ac : AC value} \\
+																					{\small scale : Current scale factor} \\
+																					{\small temp :  Temperature} \\
+																					{\small dtemp : Temperature difference with ambient} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small noisy : Noise on/off}\end{tabular}																					
 \end{longtable}
 
 \textbf{\textit{Example:}}
@@ -143,10 +156,13 @@ RXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
 			& \parbox{25em}{{\small Insert resistor r1, with resistance 1K$\Omega \times \frac{1}{2}$, between\\nets 1 and 0}} 
 \end{longtable}
 
+\inserttip{If it is specified for an instance, [INLINE PARAMS] override [MODEL PARAMS].} 
+
 \textbf{\textit{Alternative Syntax 2: Semiconductor resistor}}
 
-\spicesyntax{\begin{tabular}{ll}
-RXX & [N+] [N-] [MODEL] [INLINE PARAMS]
+\spicesyntax{\begin{tabular}{l}
+RXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] R [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -154,6 +170,7 @@ RXX & [N+] [N-] [MODEL] [INLINE PARAMS]
 \textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
 \texttt{[N+]} & Positive node/net \\
 \texttt{[N-]} & Negative node/net \\
+\texttt{[VAL]} & Resistance \\
 \texttt{[MODEL]} & Resistor model defined by a .model statement \\
 \texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
 																					{\small l : Length} \\
@@ -187,10 +204,23 @@ RXX & [N+] [N-] [MODEL] [INLINE PARAMS]
 			& \parbox{25em}{{\small Insert resistor r1, with resistance 10$\times\frac{2u-0.05u}{1u-0.1u}\Omega$,\\between nets 1 and 0}} 
 \end{longtable}
 
+\inserttip{If [VAL] is specified, it will override resistance calculated using the geometrical effects.} 
+
+\textbf{\textit{Remarks:}}
+
+If resistance is not specified, but tc1 (default : 0), tc2 (default : 0), rsh (no default), short (default : 0), and narrow (default : 0) are specified, the semiconductor resistance is calculated using the circuit temperature T as follows:
+
+\begin{eqnarray}
+\rm{r} &=& \rm{r}_o\times(1+\rm{tc1}\times(\rm{T}-\rm{tnom})+\rm{tc2}\times(\rm{T}-\rm{tnom})^2) \nonumber\\
+\rm{r}_o &=& \rm{rsh}\times\frac{\rm{l}-\rm{short}}{\rm{w}-\rm{narrow}}\nonumber
+\end{eqnarray} 
+
+\inserttip{If rsh or l are not specified, r is set to 1m$\Omega$.} 
+
 \textbf{\textit{Alternative Syntax 3: Behavioral resistor}}
 
 \spicesyntax{\begin{tabular}{ll}
-RXX & [N+] [N-] R= { [EXPRESSION] } 
+RXX & [N+] [N-] R= [EXPRESSION] [INLINE PARAMS]
 \end{tabular}
 }
 
@@ -198,7 +228,11 @@ RXX & [N+] [N-] R= { [EXPRESSION] }
 \textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
 \texttt{[N+]} & Positive node/net \\
 \texttt{[N-]} & Negative node/net \\
-\texttt{[EXPRESSION]} & An equation or expression containing voltages or currents 																	
+\texttt{[EXPRESSION]} & An equation or expression containing voltages or currents \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} 
+																					\end{tabular} 																	
 \end{longtable}
 
 \textbf{\textit{Example:}}
@@ -210,7 +244,10 @@ RXX & [N+] [N-] R= { [EXPRESSION] }
 \end{longtable}
 }
 
+\inserttip{Expression needs to be enclosed with $\{...\}$ or '...'.} 
+
 % CAPACITOR CAPACITOR
+\newpage
 \subsection{Capacitors}
 \label{subsec_sceadm_capacitors}
 
@@ -233,8 +270,16 @@ CXX & [N+] [N-] [VAL] [INLINE PARAMS]
 																					{\small dtemp : Temperature difference with ambient} \\
 																					{\small tc1 : Linear temperature coefficient} \\
 																					{\small tc2 : Quadratic temperature coefficient} \\
-																					{\small ic : Initial condition}\end{tabular} 
+																					{\small ic : Initial condition} \\
+																					{\small rser : Series resistance} \\
+																					{\small lser : Series inductance} \\ 
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} \\
+																					{\small rlshunt : Parallel resistance to lser} 
+																					\end{tabular} 
 \end{longtable}
+
+\inserttip{rser, lser, rpar, cpar and rlshunt are incorporated for Ltspice compatibility.}
 
 \textbf{\textit{Schematics Editor Library:}}
 
@@ -264,12 +309,20 @@ Analog
 \textbf{\textit{Remarks:}}
 
 "\textsf{Value}" can be set to a model as described next by the alternative syntax. These alternatives can be used by editing the netlist using the netlist editor.
-\newline\noindent
-{\color{darkgreen}
+
+\mymarginnote{Default gmin\\is 1e-12} 
+
+\inserttip{CoolSPICE automatically inserts a resistor with resistance 1/gmin across each capacitor to increase stability.}
+
+
+
+
+{\color{darkgray}
 \textbf{\textit{Alternative Syntax 1:}}
 
-\spicesyntax{\begin{tabular}{ll}
-CXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
+\spicesyntax{\begin{tabular}{l}
+CXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] C [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -286,7 +339,21 @@ CXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
 																					{\small dtemp : Temperature difference with ambient} \\
 																					{\small tc1 : Linear temperature coefficient} \\
 																					{\small tc2 : Quadratic temperature coefficient} \\
-																					{\small ic : Initial condition}\end{tabular} 
+																					{\small ic : Initial condition} \\
+																					{\small rser : Series resistance} \\
+																					{\small lser : Series inductance} \\ 
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} \\
+																					{\small rlshunt : Parallel resistance to lser}																					\end{tabular} \\
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small cap : Capacitance} \\
+																					{\small m : Current multiplication factor} \\ 
+																					{\small scale : Current scale factor} \\
+																					{\small temp :  Temperature} \\
+																					{\small dtemp : Temperature difference with ambient} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small ic : Initial condition}\end{tabular}																					
 \end{longtable}
 
 \textbf{\textit{Example:}}
@@ -298,10 +365,13 @@ CXX & [N+] [N-] [VAL] [MODEL] [INLINE PARAMS]
 			& \parbox{25em}{{\small Insert capacitor c1, with capacitance 1pF $\times$2, between\\nets 1 and 0}} 
 \end{longtable}
 
+\inserttip{.ic applies only if uic is used in conjunction with .tran.} 
+
 \textbf{\textit{Alternative Syntax 2: Semiconductor capacitor}}
 
-\spicesyntax{\begin{tabular}{ll}
-CXX & [N+] [N-] [MODEL] [INLINE PARAMS]
+\spicesyntax{\begin{tabular}{l}
+CXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] C [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -309,27 +379,36 @@ CXX & [N+] [N-] [MODEL] [INLINE PARAMS]
 \textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
 \texttt{[N+]} & Positive node/net \\
 \texttt{[N-]} & Negative node/net \\
+\texttt{[VAL]} & Capacitance \\
 \texttt{[MODEL]} & Resistor model defined by a .model statement \\
 \texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
 																					{\small l : Length} \\
 																					{\small w : Width} \\
 																					{\small m : Current multiplication factor} \\ 
-																					{\small ac : AC value} \\
 																					{\small scale : Current scale factor} \\
 																					{\small temp :  Temperature} \\
 																					{\small dtemp : Temperature difference with ambient} \\
-																					{\small noisy : Noise on/off}\end{tabular} \\
+																					{\small ic : Initial condition} \\
+																					{\small rser : Series resistance} \\
+																					{\small lser : Series inductance} \\ 
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} \\
+																					{\small rlshunt : Parallel resistance to lser}
+																					\end{tabular} \\
 \texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
-																					{\small tc1 : Linear temperature coefficient} \\
-																					{\small tc2 : Quadratic temperature coefficient} \\
-																					{\small rsh : Sheet resistance} \\
+																					{\small cap : Default value}  \\
+																					{\small cj : Bottom/areal junction capacitance} \\
+																					{\small cjsw : Sidewall/perimeter junction capacitance} \\
+																					{\small defw : Default width} \\
+																					{\small defl : Default length} \\
 																					{\small defw : Default width} \\
 																					{\small narrow : Width narrowing value} \\
 																					{\small short : Length shortening value} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
 																					{\small tnom : Nominal temperature} \\
-																					{\small kf : Flicker noise coefficient} \\
-																					{\small af : Flicker noise exponent} \\
-																					{\small r (res) : Default value} \\
+																					{\small di : Relative epsilon} \\
+																					{\small thick : Dielectric thickness} \\
 																					\end{tabular}																			
 \end{longtable}
 
@@ -337,15 +416,28 @@ CXX & [N+] [N-] [MODEL] [INLINE PARAMS]
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\parbox{15em}{\texttt{r1 1 0 res l=2u w=1u} \\
-			\texttt{.model res R (rsh=10\\+narrow=0.1u short=0.05u)}} 
-			& \parbox{25em}{{\small Insert resistor r1, with resistance 10$\times\frac{2u-0.05u}{1u-0.1u}\Omega$,\\between nets 1 and 0}} 
+		\parbox{15em}{\texttt{c1 1 0 cap l=2u w=1u} \\
+			\texttt{.model cap C (cj=1u cjsw=1p)}} 
+			& \parbox{25em}{{\small Insert capacitor c1, with capacitance 
+			1uF/m$^{2}\times\rm{l}\times\rm{w}$\\+ 1pF/m $\times{2}\times\rm{l}\times\rm{w}$, between nets 1 and 0}} 
 \end{longtable}
 
-\textbf{\textit{Alternative Syntax 3: Behavioral resistor}}
+\textbf{\textit{Remarks:}}
+
+If cap is not specified, but tc1 (default : 0), tc2 (default : 0), thick (default : 0), short (default : 0), narrow (default : 0), and di (default : 3.9) are specified, the semiconductor capacitance is calculated using the circuit temperature T as follows:
+
+\begin{eqnarray}
+\rm{c} &=& \rm{c}_o\times(1+\rm{tc1}\times(\rm{T}-\rm{tnom})+\rm{tc2}\times(\rm{T}-\rm{tnom})^2) \nonumber\\
+\rm{c}_o &=& \rm{cj}\times(\rm{l}-\rm{short}) + 2\times\rm{cjsw}\times(\rm{l}-\rm{short}+\rm{w}-\rm{narrow}) \nonumber\\
+\rm{cj} &=& \frac{\rm{cj}\times\epsilon_o}{\rm{thick}}\nonumber
+\end{eqnarray} 
+
+\inserttip{If [VAL] is specified, it will override capacitance calculated using the geometrical effects.} 
+
+\textbf{\textit{Alternative Syntax 3: Behavioral capacitor}}
 
 \spicesyntax{\begin{tabular}{ll}
-RXX & [N+] [N-] R= { [EXPRESSION] } 
+CXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]  
 \end{tabular}
 }
 
@@ -353,24 +445,236 @@ RXX & [N+] [N-] R= { [EXPRESSION] }
 \textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
 \texttt{[N+]} & Positive node/net \\
 \texttt{[N-]} & Negative node/net \\
-\texttt{[EXPRESSION]} & An equation or expression containing voltages or currents 																	
+\texttt{[EXPRESSION]} & An equation or expression containing voltages or currents \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small rser : Series resistance} \\
+																					{\small lser : Series inductance} \\ 
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} \\
+																					{\small rlshunt : Parallel resistance to lser}
+																					\end{tabular}  																	
 \end{longtable}
 
 \textbf{\textit{Example:}}
 
 \begin{longtable}{l l}
 \textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
-		\texttt{r1 1 0 r={v(2)*0.1}} 
-			& {\small Insert resistor r1, with resistance v(2)$\times$0.1$\Omega$, between nets 1 and 0} 
+		\texttt{c1 1 0 c={v(2)*0.1}} 
+			& {\small Insert capacitor c1, with capacitance v(2)$\times$0.1F, between nets 1 and 0} 
+\end{longtable}
+}
+
+% INDUCTOR INDUCTOR
+\newpage
+\subsection{Inductors}
+\label{subsec_sceadm_inductors}
+
+\textbf{\textit{Syntax:}}
+
+\spicesyntax{\begin{tabular}{ll}
+LXX & [N+] [N-] [VAL] [INLINE PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[VAL]} & Inductance \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :}\\
+																					{\small nt : Number of turns} \\ 
+																					{\small m : Current multiplication factor} \\ 
+																					{\small scale : Current scale factor} \\
+																					{\small temp :  Temperature} \\
+																					{\small dtemp : Temperature difference with ambient} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small ic : Initial condition} \\
+																					{\small rser : Series resistance} \\
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} 
+																					\end{tabular} 
+\end{longtable}
+
+\inserttip{rser, rpar, and cpar are incorporated for Ltspice compatibility.}
+
+\textbf{\textit{Schematics Editor Library:}}
+
+Analog
+
+\textbf{\textit{Schematics Editor Symbol:}}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.125\textwidth]{./pics/SpiceEl/Inductor.png}
+  \end{center}
+	%\caption{Resistor symbol}
+\end{figure}
+
+\textbf{\textit{Schematics Editor Option:}}
+
+"\textsf{Value}" is for assigning an alphanumeric number to \texttt{[VAL]}
+\newpage
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\texttt{l1 1 0 1n} & {\small Insert inductor l1, with inductance 1nH, between nets 1 and 0} \\
+\texttt{l1 1 0 1n m=2} & {\small Insert inductor l1, with inductance 1nF $\times$2, between nets 1 and 0}
+\end{longtable}
+
+\textbf{\textit{Remarks:}}
+
+"\textsf{Value}" can be set to a model as described next by the alternative syntax. These alternatives can be used by editing the netlist using the netlist editor.
+
+\mymarginnote{Default gmin\\is 1e-12} 
+
+\inserttip{CoolSPICE automatically inserts a resistor with resistance 1/gmin across each inductor to increase stability.}
+
+\inserttip{CoolSPICE automatically inserts a 1 m$\Omega$ resistor in series with each inductor to increase stability. This can be disabled globally or locally.}
+
+
+{\color{darkgray}
+\textbf{\textit{Alternative Syntax 1:}}
+
+\spicesyntax{\begin{tabular}{l}
+LXX [N+] [N-] [VAL] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] L [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[VAL]} & Capacitance \\
+\texttt{[MODEL]} & Capacitance model defined by a .model statement \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small m : Current multiplication factor} \\ 
+																					{\small scale : Current scale factor} \\
+																					{\small nt : Number of turns} \\
+																					{\small temp :  Temperature} \\
+																					{\small dtemp : Temperature difference with ambient} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small ic : Initial condition} \\
+																					{\small rser : Series resistance} \\
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} 																					\end{tabular} \\
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small ind : Capacitance} \\
+																					{\small csect : Cross section} \\ 
+																					{\small length : Length} \\
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small tnom :  Nominal temperature} \\
+																					{\small nt : Number of turns} \\
+																					{\small mu : Relative $\mu$} \\																					  
+																					\end{tabular}																					
+\end{longtable}
+
+\textbf{\textit{Example:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
+			\parbox{15em}{\texttt{l1 1 0 1n myind tc1=0.01}\\ 
+			\texttt{.model myind L m=2}}
+			& \parbox{25em}{{\small Insert inductor l1, with inductance 1nH $\times$0.5, between\\nets 1 and 0}} 
+\end{longtable}
+
+\inserttip{.ic applies only if uic is used in conjunction with .tran.} 
+
+\textbf{\textit{Remarks:}}
+
+If ind is not specified, but tc1 (default : 0), tc2 (default : 0), nt (default : 0), csect (default : 0), mu (default : 1), and length (default : 0) are specified, the inductance is calculated using the circuit temperature T as follows:
+
+\begin{eqnarray}
+\rm{l} &=& \rm{l}_o\times(1+\rm{tc1}\times(\rm{T}-\rm{tnom})+\rm{tc2}\times(\rm{T}-\rm{tnom})^2) \nonumber\\
+\rm{l}_o &=& \frac{\rm{mu}\times\mu_o\times\rm{nt}^2\times\rm{csect}}{\rm{length}}\nonumber
+\end{eqnarray} 
+
+\inserttip{If [VAL] is specified, it will override inductance calculated using the geometrical effects.} 
+
+\textbf{\textit{Alternative Syntax 3: Behavioral inductor}}
+
+\spicesyntax{\begin{tabular}{ll}
+LXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]  
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[EXPRESSION]} & An equation or expression containing voltages or currents \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small tc1 : Linear temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
+																					{\small rser : Series resistance} \\
+																					{\small rpar : Parallel resistance} \\
+																					{\small cpar : Parallel capacitance} 
+																					\end{tabular}  																	
+\end{longtable}
+
+\textbf{\textit{Example:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.8\parskip} 
+		\texttt{l1 1 0 l={v(2)*0.1}} 
+			& {\small Insert inductor l1, with inductance v(2)$\times$0.1H, between nets 1 and 0} 
 \end{longtable}
 }
 
 
-\subsection{Inductors}
-\label{subsec_sceadm_inductors}
+% COUPLED INDUCTOR COUPLED INDUCTOR
+\newpage
+\subsection{Coupled Inductors}
+\label{subsec_sceadm_coupledinductors}
 
-\textit{\textbf{Coupled Inductors}}
+\textbf{\textit{Syntax:}}
 
+\spicesyntax{\begin{tabular}{ll}
+KXX & [LYY] [LZZ] [VAL] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[LYY]} & First of the coupled inductor \\
+\texttt{[LZZ]} & Second of the coupled inductor \\
+\texttt{[VAL]} & Coupling value \\ 
+\end{longtable}
+
+\inserttip{Coupling value has to be between 0 and 1.}
+
+\textbf{\textit{Schematics Editor Library:}}
+
+Analog
+
+\textbf{\textit{Schematics Editor Symbol:}}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[height=0.08\textheight]{./pics/SpiceEl/CInductor.png}
+  \end{center}
+	%\caption{Resistor symbol}
+\end{figure}
+
+\textbf{\textit{Schematics Editor Option:}}
+
+"\textsf{Value}" is for assigning an alphanumeric number to \texttt{[VAL]}
+\newpage
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\texttt{k1 l1 l2 0.99} & {\small Insert coupled inductor k1, with coupling 0.99, between nets 1 and 0} \\
+\end{longtable}
+
+
+\newpage
 \subsection{Behavioral Models}
 \label{subsec_sceadm_behavioralmodels}
 
