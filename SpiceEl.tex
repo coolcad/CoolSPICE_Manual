@@ -76,7 +76,7 @@ RXX & [N+] [N-] [VAL] [INLINE PARAMS]
 																					{\small temp :  Temperature} \\
 																					{\small dtemp : Temperature difference with ambient} \\
 																					{\small tc1 : Linear temperature coefficient} \\
-																					{\small tc1 : Quadratic temperature coefficient} \\
+																					{\small tc2 : Quadratic temperature coefficient} \\
 																					{\small noisy : Noise on/off}\end{tabular} 
 \end{longtable}
 
@@ -395,6 +395,74 @@ BXX & [N+] [N-] [(I/V)] = [EXPRESSION] [INLINE PARAMS]
 \end{tabular}
 }
 
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[I/V]} & Current/Voltage \\
+\texttt{[EXPRESSION]} & Expression describing current/voltage \\
+\texttt{[INLINE PARAMS]}& \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :}\\
+	{\small temp : Temperature} \\
+	{\small dtemp : Temperature difference from ambient} \\
+	{\small tc1 : Linear temperature coefficient} \\
+	{\small tc2 : Quadratic temperature coefficient} \\
+	{\small rpar : Parallel resistance} \\
+	\end{tabular}
+\end{longtable}
+
+\textbf{\textit{Schematics Editor Library:}}
+
+Analog
+
+\textbf{\textit{Schematics Editor Symbols:}}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[width=0.15\textwidth]{./pics/SpiceEl/BSource.png}
+  \end{center}
+\end{figure}
+
+\textbf{\textit{Schematics Editor Option:}}
+
+"\textsf{I/V}" used to describe the current/voltage of the source with an expression \texttt{[I/V]}
+
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+%\textit{statement} & \textit{explanation} \\ [0.5ex]
+Statement & Explanation \\ [0.5ex]
+\hline \\ %\vspace{-0.8\parskip} 
+
+\begin{minipage}{20em}
+\texttt{B1 0 1 I=cos(v(1))+sin(v(2))}
+\end{minipage}& 
+\begin{minipage}{20em}
+Insert current source B1, with current equal to the expression cos(v(1))+sin(v(2))
+\end{minipage}
+\\ \\
+
+\begin{minipage}{20em}
+B2 0 1 V=ln(cos(log(v(1,2)\^{}2)))-v(2)\^{}v(1)
+\end{minipage} &
+\begin{minipage}{20em}
+Insert voltage source B2, with voltage equal to the expression V=ln(cos(log(v(1,2)$\rm{^2}$)))-v(2)$\rm{^{v(1)}}$
+\end{minipage}
+\\ \\
+
+\begin{minipage}{20em}
+B3 0 1 V=V(1) $<$ $\left\{\rm{Vlow}\right\}$ ? $\left\{\rm{Vlow}\right\}$ : V(1) $>$ $\left\{\rm{Vhigh}\right\}$ ? $\left\{\rm{Vhigh}\right\}$ : V(1)
+\end{minipage} &
+\begin{minipage}{20em}
+Insert voltage source B3, with voltage equal to the voltage of net/node 1 bounded by parameters 'Vlow' and 'Vhigh'
+\end{minipage}
+
+\end{longtable}
+
+\textbf{\textit{Remarks:}}
+
+
+\textbf{\textit{Available functions for behavioral sources:}}
+
 \begin{longtable}{c c}
 
 \hline\hline %inserts double horizontal lines
@@ -428,8 +496,8 @@ ceil(x) & \begin{minipage}{20em}
 Smallest integer that is greater than or equal to x
 \end{minipage}\\ \\
 
-dd(x) & \begin{minipage}{20em}
-ddt(x) derivative of x against the independent variable
+ddt(x) & \begin{minipage}{20em}
+derivative of x against the independent variable
 \end{minipage}\\ \\
 
 exp(x) & \begin{minipage}{20em}
@@ -457,11 +525,11 @@ If y $\leq$ x then x, If x $<$ y $<$ z then y, if x $<$ y and z $\leq$ y then z.
 \end{minipage}\\ \\
 
 ln(x), log(x) & \begin{minipage}{20em}
-Natural log of x
+Natural log of absolute value of x, causes error if x is zero
 \end{minipage}\\ \\
 
 log10(x) & \begin{minipage}{20em}
-Log base ten of x
+Log base ten of absolute value of x, causes error if x is zero
 \end{minipage}\\ \\
 
 max(x, y) & \begin{minipage}{20em}
@@ -509,15 +577,15 @@ Hyperbolic trigonometric functions
 \end{minipage}\\ \\
 
 sqrt(x) & \begin{minipage}{20em}
-y=$\sqrt{\rm{x}}$, note that this function gives only the real part of the answer
+y=$\sqrt{\rm{x}}$, note that if x is less than zero this function returns the square root of the absolute value of x
 \end{minipage}\\ \\
 
 %table(x, x1,y1, x2,y2, ... ) & \begin{minipage}{20em}
 %Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
 %\end{minipage}\\ \\
 
-ternary\_fcn(x, y, z), if(x, y, z) & \begin{minipage}{20em}
-x ? y : z
+ternary\_fcn(x, y, z), if(x, y, z), x ? y : z & \begin{minipage}{20em}
+x ? y : z, note the question mark must be followed by a blank space for the parser
 \end{minipage}\\ \\
 
 u(x) & \begin{minipage}{20em}
