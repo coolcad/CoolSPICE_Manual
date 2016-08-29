@@ -55,7 +55,7 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \label{sec_sceadm_passiveelements}
 
 \newpage
-\subsection{Resistors}
+\subsection{RXX : Resistors}
 \label{subsec_sceadm_resistors}
 
 \textbf{\textit{Syntax:}}
@@ -252,7 +252,7 @@ RXX & [N+] [N-] R= [EXPRESSION] [INLINE PARAMS]
 
 % CAPACITOR CAPACITOR
 \newpage
-\subsection{Capacitors}
+\subsection{CXX : Capacitors}
 \label{subsec_sceadm_capacitors}
 
 \textbf{\textit{Syntax:}}
@@ -474,7 +474,7 @@ CXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]
 
 % INDUCTOR INDUCTOR
 \newpage
-\subsection{Inductors}
+\subsection{LXX : Inductors}
 \label{subsec_sceadm_inductors}
 
 \textbf{\textit{Syntax:}}
@@ -641,7 +641,7 @@ LXX & [N+] [N-] C= [EXPRESSION] [INLINE PARAMS]
 
 % COUPLED INDUCTOR COUPLED INDUCTOR
 \newpage
-\subsection{Coupled Inductors}
+\subsection{KXX : Coupled Inductors}
 \label{subsec_sceadm_coupledinductors}
 
 \textbf{\textit{Syntax:}}
@@ -691,7 +691,7 @@ Analog
 \section{Sources}
 \label{sec_sceadm_sources}
 
-\subsection{Independent Sources}
+\subsection{VXX / IXX :Independent Sources}
 \label{subsec_sceadm_independentsources}
 
 \textbf{\textit{Syntax:}}
@@ -939,10 +939,10 @@ SFFM ( [VO] [VA] [MDI] [FS] )
     %V(t)=\rm{VA}(\rm{VO}+\sin(2\pi\rm{MF}t)\sin(2\pi\rm{FC}t)) \nonumber
   %\]
 \newpage
-\subsection{Linear Dependent Sources}
+\subsection{GXX / EXX / FXX / HXX : Linear Dependent Sources}
 \label{subsec_sceadm_lineardependentsources}
 
-\textbf{\textit{Voltage Controlled Current Source (VCCS):}}
+\textbf{\textit{GXX : Voltage Controlled Current Source (VCCS):}}
 
 \spicesyntax{\begin{tabular}{l}
 GXX [N+] [N-] [NC+] [NC-] [VAL] 
@@ -972,7 +972,7 @@ GXX [N+] [N-] [NC+] [NC-] [VAL]
 \begin{minipage}{15em}{\small Insert a current source between nets 1 and 0, and set its value to twice the voltage between 2 and 0.}\end{minipage}  
 \end{longtable}
 
-\textbf{\textit{Voltage Controlled Voltage Source (VCVS):}}
+\textbf{\textit{EXX : Voltage Controlled Voltage Source (VCVS):}}
 
 \spicesyntax{\begin{tabular}{l}
 EXX [N+] [N-] [NC+] [NC-] [VAL] 
@@ -1002,7 +1002,7 @@ EXX [N+] [N-] [NC+] [NC-] [VAL]
 \begin{minipage}{15em}{\small Insert a voltage source between nets 1 and 0, and set its value to twice the voltage between 2 and 0.}\end{minipage}  
 \end{longtable}
 
-\textbf{\textit{Current Controlled Current Source (CCCS):}}
+\textbf{\textit{FXX : Current Controlled Current Source (CCCS):}}
 
 \spicesyntax{\begin{tabular}{l}
 FXX [N+] [N-] [VNAM] [VAL] 
@@ -1031,7 +1031,7 @@ FXX [N+] [N-] [VNAM] [VAL]
 \begin{minipage}{15em}{\small Insert a current source between nets 1 and 0, and set its value to twice the current flowing on v1.}\end{minipage}  
 \end{longtable}
 
-\textbf{\textit{Current Controlled Voltage Source (CCVS):}}
+\textbf{\textit{HXX : Current Controlled Voltage Source (CCVS):}}
 
 \spicesyntax{\begin{tabular}{l}
 HXX [N+] [N-] [VNAM] [VAL] 
@@ -1061,7 +1061,7 @@ HXX [N+] [N-] [VNAM] [VAL]
 \end{longtable}
 
 \newpage
-\subsection{Behavioral Sources}
+\subsection{BXX : Behavioral Sources}
 \label{subsec_sceadm_behavioralsources}
 
 \textbf{\textit{Syntax:}}
@@ -1301,7 +1301,7 @@ Randomly generated number y such that -0.5 $<$ y $<$ 0.5
 \section{Active Elements}
 \label{sec_sceadm_activeelements}
 
-\subsection{Diodes}
+\subsection{DXX : Diodes}
 \label{subsec_sceadm_diodes}
 
 \textbf{\textit{Syntax :}}
@@ -1386,7 +1386,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \end{longtable}
 
 \newpage
-\subsection{BJTs}
+\subsection{QXX : BJTs}
 \label{subsec_sceadm_bjts}
 
 \textbf{\textit{Syntax :}}
@@ -1549,7 +1549,7 @@ QXX [NC] [NB] [NE] [MODEL] [INLINE PARAMS] \\
 \end{longtable}
 
 \newpage
-\subsection{MOSFETs}
+\subsection{MXX : MOSFETs}
 \label{subsec_sceadm_mosfets}
 
 \textbf{\textit{Syntax :}}
@@ -2468,12 +2468,88 @@ MXX [ND] [NG] [NS] [NB] [MODEL] [INLINE PARAMS] \\
 \textbf{\textit{MESFETs}}
 
 
-
+\newpage
 \section{Other Elements}
 \label{sec_sceadm_otherelements}
 
-\subsection{Switches}
+\subsection{SXX / WXX : Switches}
 \label{subsec_sceadm_switches}
+
+\textbf{\textit{SXX : Voltage Controlled Switch:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+SXX [N+] [N-] [NC+] [NC-] [MODEL] [INLINE PARAM] \\
+.MODEL [MODEL] SW [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[NC+]} & Positive controlling node/net \\
+\texttt{[NC-]} & Negative controlling node/net \\
+\texttt{[MODEL]} & Diode model defined by a .model statement \\
+\texttt{[INLINE PARAM]} & {\small on/off : Switch initial state} \\  
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small vt : Threshold voltage} \\ 
+																					{\small vh : Hysteresis voltage} \\
+																					{\small ron : On resistance} \\
+																					{\small roff : Off resistance} \\
+																					\end{tabular}																					
+\end{longtable}
+																		
+
+
+\textbf{\textit{Example:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
+			\begin{minipage}{15em}{\texttt{s1 1 0 2 0}\\ 
+			\texttt{.model s1 sw vt=0 ron=1m roff=1meg}}\end{minipage}
+			& \begin{minipage}{15em}{{\small Between nets 1 and 0, insert an ideal switch that is controlled by voltage between 2 and 0. Short circuit resistance of the switch is 1m$\Omega$ and the open circuit resistance of the switch is 1M$\Omega$. Switch closes for positive voltages, and stays open for negative voltages.}}\end{minipage} 
+\end{longtable}
+
+\textbf{\textit{WXX : Current Controlled Switch:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+WXX [N+] [N-] [VC] [MODEL] [INLINE PARAM] \\
+.MODEL [MODEL] CSW [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[VC]} & Voltage source whose current is used for control \\
+\texttt{[MODEL]} & Diode model defined by a .model statement \\
+\texttt{[INLINE PARAM]} & {\small on/off : Switch initial state} \\  
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small it : Threshold current} \\ 
+																					{\small ih : Hysteresis current} \\
+																					{\small ron : On resistance} \\
+																					{\small roff : Off resistance} \\
+																					\end{tabular}																					
+\end{longtable}
+																		
+
+
+\textbf{\textit{Example:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
+			\begin{minipage}{15em}{\texttt{w1 1 0 v1}\\ 
+			\texttt{.model s1 csw it=0 ron=1m roff=1meg}}\end{minipage}
+			& \begin{minipage}{15em}{{\small Between nets 1 and 0, insert an ideal switch that is controlled by current on v1. Short circuit resistance of the switch is 1m$\Omega$ and the open circuit resistance of the switch is 1M$\Omega$. Switch closes for positive currents, and stays open for negative currents.}}\end{minipage} 
+\end{longtable}
+
 
 \subsection{Transmission Lines}
 \label{subsec_sceadm_transmissionlines}
