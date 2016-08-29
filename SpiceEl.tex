@@ -44,8 +44,8 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \texttt{D} & Diodes (Section \ref{subsec_sceadm_diodes}) \\
 \texttt{Q} & BJTs (Section \ref{subsec_sceadm_bjts}) \\
 \texttt{M} & MOSFETs (Section \ref{subsec_sceadm_mosfets}) \\
-\texttt{Z} & MESFETs (Section \ref{subsec_sceadm_otheractiveelements}) \\
-\texttt{J} & JFETs (Section \ref{subsec_sceadm_otheractiveelements}) \\
+\texttt{Z} & MESFETs (Section \ref{subsec_sceadm_mesfets}) \\
+\texttt{J} & JFETs (Section \ref{subsec_sceadm_jfets}) \\
 \texttt{S, W} & Switches (Section \ref{subsec_sceadm_switches}) \\
 \texttt{T} & Transmission Lines (Section \ref{subsec_sceadm_transmissionlines}) \\
 
@@ -1347,6 +1347,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 																					{\small cj} & {\small Junction capacitance} \\
 																					{\small vj} & {\small Junction potential} \\
 																					{\small pb} & {\small Junction potential} \\
+																					
 																					{\small m} & {\small Grading coefficient} \\
 																					{\small mj} & {\small Grading coefficient} \\
 																					{\small tm1} & {\small Grading coefficient 1st temp. coeff.} \\
@@ -1376,14 +1377,9 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \end{longtable}																				
 
 
-\textbf{\textit{Example:}}
+\textbf{\textit{Temperature Dependent Terms:}}
 
-\begin{longtable}{l l}
-\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
-			\begin{minipage}{15em}{\texttt{xx}\\ 
-			\texttt{.model xx}}\end{minipage}
-			& \begin{minipage}{15em}{{\small xx}}\end{minipage} 
-\end{longtable}
+
 
 \newpage
 \subsection{QXX : BJTs}
@@ -1393,7 +1389,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 
 \spicesyntax{\begin{tabular}{l}
 QXX [NC] [NB] [NE] [MODEL] [INLINE PARAMS] \\
-.MODEL [MODEL] Q [MODEL PARAMS]
+.MODEL [MODEL] [DEVICE TYPE] [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -1412,7 +1408,8 @@ QXX [NC] [NB] [NE] [MODEL] [INLINE PARAMS] \\
 																					{\small ic :  Initial voltage condition} \\
 																					{\small temp : Temperature} \\
 																					{\small dtemp : Temperature difference with ambient} \\
-																					\end{tabular} 
+																					\end{tabular} \\
+\texttt{[DEVICE TYPE]} & NPN or PNP \\																					
 \end{longtable}
 
 \begin{longtable}{l l}		
@@ -1556,7 +1553,7 @@ QXX [NC] [NB] [NE] [MODEL] [INLINE PARAMS] \\
 
 \spicesyntax{\begin{tabular}{l}
 MXX [ND] [NG] [NS] [NB] [MODEL] [INLINE PARAMS] \\
-.MODEL [MODEL] M [MODEL PARAMS]
+.MODEL [MODEL] [DEVICE TYPE] [MODEL PARAMS]
 \end{tabular}
 }
 
@@ -1579,7 +1576,8 @@ MXX [ND] [NG] [NS] [NB] [MODEL] [INLINE PARAMS] \\
 																					{\small nrs : Number of source squares} \\																					{\small off : Initial condition for diode state} \\
 																					{\small ic :  Initial voltage condition} \\
 																					{\small temp : Temperature} \\
-																					\end{tabular} 
+																					\end{tabular} \\
+\texttt{[DEVICE TYPE]} & NMOS or PMOS \\																					
 \end{longtable}
 
 \begin{longtable}{l l}		
@@ -2459,14 +2457,123 @@ MXX [ND] [NG] [NS] [NB] [MODEL] [INLINE PARAMS] \\
 \end{longtable}
 
 
-\subsection{Other Active Elements}
-\label{subsec_sceadm_otheractiveelements}
+\subsection{JXX : JFETs}
+\label{subsec_sceadm_jfets}
 
-\textbf{\textit{JFETs}}
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+JXX [ND] [NG] [NS] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] [DEVICE TYPE] [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[ND]} & Drain node/net \\
+\texttt{[NG]} & Gate node/net \\
+\texttt{[NS]} & Source node/net \\
+\texttt{[MODEL]} & JFET model defined by a .model statement \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small area : Area factor} \\ 
+																					{\small off : Initial condition for jfet state} \\
+																					{\small ic :  Initial voltage conditions} \\
+																					{\small temp : Temperature} \\
+																					\end{tabular} \\
+\texttt{[DEVICE TYPE]} & NJF or PJF \\																					
+\end{longtable}
+
+\begin{longtable}{l l}		
+\texttt{[MODEL PARAMS]} & \textit{description of model parameters :} \\ \hline \\ \vspace{-0.8\parskip}
+																					{\small vt0 } & {\small  Threshold voltage} \\
+																					{\small vto } & {\small  Threshold voltage} \\
+																					{\small beta } & {\small  Transconductance parameter} \\
+																					{\small lambda } & {\small  Channel length modulation param.} \\
+																					{\small rd } & {\small  Drain ohmic resistance} \\
+																					{\small gd } & {\small  Drain conductance} \\
+																					{\small rs } & {\small  Source ohmic resistance} \\
+																					{\small gs } & {\small  Source conductance} \\
+																					{\small cgs } & {\small  G-S junction capactance} \\
+																					{\small cgd } & {\small  G-D junction cap} \\
+																					{\small pb } & {\small  Gate junction potential} \\
+																					{\small is } & {\small  Gate junction saturation current} \\
+																					{\small fc } & {\small  Forward bias junction fit parm.} \\
+
+																					{\small b } & {\small  Doping tail parameter} \\
+
+																					{\small tnom } & {\small  parameter measurement temperature} \\
+																					{\small kf } & {\small  Flicker Noise Coefficient} \\
+																					{\small af } & {\small  Flicker Noise Exponent} 
+\end{longtable}																				
 
 
-\textbf{\textit{MESFETs}}
+\textbf{\textit{Example:}}
 
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
+			\begin{minipage}{15em}{\texttt{xx}\\ 
+			\texttt{.model xx}}\end{minipage}
+			& \begin{minipage}{15em}{{\small xx}}\end{minipage} 
+\end{longtable}
+
+
+\subsection{ZXX : MESFETs}
+\label{subsec_sceadm_mesfets}
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+ZXX [ND] [NG] [NS] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] [DEVICE TYPE] [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[ND]} & Drain node/net \\
+\texttt{[NG]} & Gate node/net \\
+\texttt{[NS]} & Source node/net \\
+\texttt{[MODEL]} & MESFET model defined by a .model statement \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small area : Area factor} \\ 
+																					{\small off : Initial condition for jfet state} \\
+																					{\small ic :  Initial voltage conditions} \\
+																					\end{tabular} \\
+\texttt{[DEVICE TYPE]} & NMF or PMF \\																					
+\end{longtable}
+
+\begin{longtable}{l l}		
+\texttt{[MODEL PARAMS]} & \textit{description of model parameters :} \\ \hline \\ \vspace{-0.8\parskip}
+																					{\small vt0} & {\small Pinch-off voltage} \\
+ 																					{\small vto} & {\small Pinch-off voltage} \\
+ 																					{\small alpha} & {\small Saturation voltage parameter} \\
+																					{\small beta} & {\small Transconductance parameter} \\
+																					{\small lambda} & {\small Channel length modulation parm.} \\
+																					{\small b} & {\small Doping tail extending parameter} \\
+																					{\small rd} & {\small Drain ohmic resistance} \\
+																					{\small gd} & {\small Drain conductance} \\
+																					{\small rs} & {\small Source ohmic resistance} \\
+																					{\small gs} & {\small Source conductance} \\
+																					{\small cgs} & {\small G-S junction capacitance} \\
+																					{\small cgd} & {\small G-D junction capacitance} \\
+																					{\small pb} & {\small Gate junction potential} \\
+																					{\small is} & {\small Junction saturation current} \\
+																					{\small fc} & {\small Forward bias junction fit parm.} \\
+																					{\small depl$\_$cap} & {\small Depletion capacitance} \\
+																					{\small vcrit} & {\small Critical voltage} \\
+																					{\small kf} & {\small Flicker noise coefficient} \\
+																					{\small af} & {\small Flicker noise exponent")}
+\end{longtable}																				
+
+
+\textbf{\textit{Example:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ %\vspace{-0.1\parskip} 
+			\begin{minipage}{15em}{\texttt{xx}\\ 
+			\texttt{.model xx}}\end{minipage}
+			& \begin{minipage}{15em}{{\small xx}}\end{minipage} 
+\end{longtable}
 
 \newpage
 \section{Other Elements}
@@ -2551,8 +2658,131 @@ WXX [N+] [N-] [VC] [MODEL] [INLINE PARAM] \\
 \end{longtable}
 
 
-\subsection{Transmission Lines}
+\subsection{TXX / OXX / UXX / YXX /PXX : Transmission Lines}
 \label{subsec_sceadm_transmissionlines}
+
+
+\textbf{\textit{TXX : Lossless Transmission Lines:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+TXX [N1] [N2] [N3] [N4] [INLINE PARAMS] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N1]} & Port 1 positive node/net \\
+\texttt{[N2]} & Port 1 negative node/net \\
+\texttt{[N3]} & Port 2 positive node/net \\
+\texttt{[N4]} & Port 2 negative node/net \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small zo : Characteristic impedance} \\ 
+																					{\small td : Delay time} \\
+																					{\small f : Frequency} \\
+																					{\small nl : Normalized length at frequency given} \\
+																					{\small ic : Initial voltage and current conditions} 
+																					\end{tabular}																					
+\end{longtable}
+																		
+
+\textbf{\textit{OXX : Lossy Transmission Lines:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+OXX [N1] [N2] [N3] [N4] [MODEL] 
+.MODEL [MODEL] LTRA [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N1]} & Port 1 positive node/net \\
+\texttt{[N2]} & Port 1 negative node/net \\
+\texttt{[N3]} & Port 2 positive node/net \\
+\texttt{[N4]} & Port 2 negative node/net \\
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small r : Resistance per length} \\ 
+																					{\small l : Inductance per length} \\
+																					{\small g : Conductance per length} \\
+																					{\small c : Capacitance per length} \\
+																					{\small len : Length of line} \\
+																					{\small rel : Rel. rate of change of deriv. for bkpt} \\
+																					{\small abs : Abs. rate of change of deriv. for bkpt} \\
+																					{\small nocontrol : No timestep control flag} \\
+																					{\small steplimit : Always limit timestep to 0.8*(delay of line) flag} \\
+																					{\small nosteplimit : Don't always limit timestep to 0.8*(delay of line) flag} \\
+																					{\small lininterp : Use linear interpolation flag} \\
+																					{\small quadinterp : Use quadratic interpolation flag} \\
+																					{\small mixedinterp : Use linear interpolation if quadratic results look unacceptable flag} \\
+																					{\small truncnr : Use N-R iterations for step calculation in LTRAtrunc flag} \\
+																					{\small truncdontcut : Don't limit timestep flag} \\
+																					{\small compactrel : Special reltol for straight line checking flag} \\
+																					{\small compactabs : Special abstol for straight line checking flag} 																					
+																					
+																					\end{tabular}																					
+\end{longtable}
+
+
+\textbf{\textit{UXX : Uniform Distributed RC Lines:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+UXX [N1] [N2] [N3] [MODEL] [INLINE PARAMS] \\
+.MODEL [MODEL] URC [MODEL PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N1]} & Port 1 node/net \\
+\texttt{[N2]} & Port 2 node/net \\
+\texttt{[N3]} & Capacitance node/net \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :} \\ 
+																					{\small l : Length} \\ 
+																					{\small n : Number of lumped segments} \\
+																					\end{tabular}	\\	
+\texttt{[MODEL PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Model parameters :} \\ 
+																					{\small k : Propagation constant} \\ 
+																					{\small fmax : Maximum frequency} \\
+																					{\small rperl : Resistance per length} \\
+																					{\small cperl : Capacitance unit length} \\
+																					{\small isperl : Saturation current per length} \\
+																					{\small rsperl : Diode resistance per length} 
+																					\end{tabular}																																									
+\end{longtable}
+
+\textbf{\textit{YXX : Single Lossy Transmission Line:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+YXX [N1] 0 [N2] 0 [MODEL] [INLINE PARAM] \\
+.MODEL [MODEL] TXL [MODEL PARAMS]
+\end{tabular}
+}
+
+\inserttip{Please check NGSPICE manual.}
+
+\textbf{\textit{PXX : Coupled Multiconductor Line:}}
+
+
+\textbf{\textit{Syntax :}}
+
+\spicesyntax{\begin{tabular}{l}
+PXX [NI1] [NI2] [NI3] ... [GND1] [NO1] [NO2] [NO3] ... [GND2] [MODEL] [INLINE PARAM] \\
+.MODEL [MODEL] CPL [MODEL PARAMS]
+\end{tabular}
+}
+
+\inserttip{Please check NGSPICE manual.}
 
 \section{Built-in Subcircuits and Behavioral Elements in CoolSPICE}
 \label{sec_sceadm_builtinsubcircuits}
