@@ -694,8 +694,371 @@ Analog
 \subsection{Independent Sources}
 \label{subsec_sceadm_independentsources}
 
+\textbf{\textit{Syntax:}}
+
+\spicesyntax{\begin{tabular}{ll}
+VXX & [N+] [N-] [DC] [AC] [DISTOF1] [DISTOF2] [FUNCTION]\\
+IXX & [N+] [N-] [DC] [AC] [DISTOF1] [DISTOF2] [FUNCTION]
+\end{tabular}
+}
+
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive node/net \\
+\texttt{[N-]} & Negative node/net \\
+\texttt{[DC]} & DC offset during a DC or transient run \\
+\texttt{[AC]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{AC parameters :}\\ 
+																					{\small ACMAG : AC magnitude} \\ 
+																					{\small ACPHASE : AC phase} \\
+																					\end{tabular} \\
+\texttt{[DISTOF1]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{1$^{st}$ distortion parameters :}\\ 
+																					{\small F1MAG : Distortion frequency} \\ 
+																					{\small F1PHASE : Distortion phase} \\
+																					\end{tabular} \\	
+\texttt{[DISTOF2]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{2$^{nd}$ distortion parameters :}\\ 
+																					{\small F2MAG : Distortion frequency} \\ 
+																					{\small F2PHASE : Distortion phase} \\
+																					\end{tabular} \\
+\texttt{[FUNCTION]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Temporal functions :}\\ 
+																					{\small Pulse} \\ 
+																					{\small Exponential} \\
+																					{\small Sinusoidal} \\
+																					{\small Piecewise linear} \\
+																					{\small Single frequency FM} \\
+																					{\small AM} \\
+																					{\small Transient noise} \\
+																					{\small Random voltages or currents} \\
+																					\end{tabular}													
+\end{longtable}
+
+\textbf{\textit{Schematics Editor Library:}}
+
+Analog
+
+\textbf{\textit{Schematics Editor Symbol:}}
+
+\begin{figure}[htb]
+  \begin{center}
+    \includegraphics[height=0.08\textheight]{./pics/SpiceEl/IV.png}
+  \end{center}
+\end{figure}
+
+\textbf{\textit{Schematics Editor Option:}}
+
+"\textsf{Idc / Vdc}"  is for assigning an alphanumeric value to \texttt{[DC]}. "\textsf{Iac / Vac}"  is for assigning an alphanumeric value to \texttt{[AC]}.
+
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{v1 1 0 1 0.1}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert voltage source v1, with 1V DC and 0.1V AC, between nets 1 and 0}\end{minipage}  \\ \\ 
+\begin{minipage}{15em}\texttt{i1 1 0 1 0.1}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert current source i1, with 1V DC and 0.1V AC, between nets 1 and 0}\end{minipage}  \\ \\ 
+\begin{minipage}{15em}\texttt{i1 1 0 sin(0 1 1meg)}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert sinusoidal current source i1, with 1V magnitude and 1MHz frequency, between nets 1 and 0}\end{minipage}
+\end{longtable}
+
+\textbf{\textit{Pulse Waveform Syntax:}}
+
+\spicesyntax{\begin{tabular}{l}
+PULSE ( [V1] [V2] [TD] [TR] [TF] [PW] [PER] )
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[V1]} & Initial pulse value \\
+\texttt{[V2]} & Pulsed value \\
+\texttt{[TD]} & Delay time \\
+\texttt{[TR]} & Rise time \\
+\texttt{[TF]} & Fall time \\
+\texttt{[PW]} & Pulse width \\
+\texttt{[PER]} & Period
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    V(t)=\left\{
+                \begin{array}{l l}
+                  \rm{V1} \hspace{1.9in} \rm{if\ }0\leq t<\rm{TD}\\
+                  \rm{V1}+(\rm{V2}-\rm{V1})\frac{t-\rm{TD}}{\rm{TR}}\hspace{0.55in}\rm{\ if\ TD}\leq t<\rm{TD}+\rm{TR}\\
+									\rm{V2} \hspace{1.9in} \rm{if\ TD}+\rm{TR}\leq t<\rm{TD}+\rm{TR}+\rm{PW}\\
+                  \rm{V2}+(\rm{V1}-\rm{V2})\frac{t-\rm{TD}-\rm{TR}-\rm{PW}}{\rm{TF}}\rm{\ if\ }\rm{TD}+\rm{TR}+\rm{PW}\leq t<\rm{TD}+\rm{TR}+\rm{PW}+\rm{TF}\\
+									\rm{V1} \hspace{1.9in} \rm{if\ }\rm{TD}+\rm{TR}+\rm{PW}+\rm{TF}\leq t<\rm{PER}
+                \end{array}
+              \right.
+  \]
+
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{v1 1 0 pulse(0 1 1n 2n 3n 20n 50n)}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert pulsed voltage source v1 between nets 1 and 0. Pulse source generates a pulse train. The start is delayed by 1ns. The initial DC value is set to the t=0 value. v(1) voltage changes from 0 to 1V between t=1ns and t=3ns. It stays at 1V between t=3ns and t=23ns. It then falls from 1V to 0 between t=23ns and t=26ns. It stays at 0 until t=51ns. 1ns shifted (delayed canceled) version of this initial waveform repeats itself until simulation end time.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Sinusoidal Waveform Syntax:}}
+
+\spicesyntax{\begin{tabular}{l}
+SIN ( [VO] [VA] [FREQ] [TD] [THETA] )
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[VO]} & Voltage offset \\
+\texttt{[VA]} & Sinusoidal wave amplitude \\
+\texttt{[FREQ]} & Sinusoidal wave frequency \\
+\texttt{[TD]} & Delay time \\
+\texttt{[THETA]} & Damping factor 
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    V(t)=\left\{
+                \begin{array}{l l}
+                  \rm{VO} \hspace{3.85in} \rm{if\ }0\leq t<\rm{TD}\\
+                  \rm{VO}+\rm{VA}\exp(-(t-\rm{TD})\rm{THETA})\sin(2\pi\rm{FREQ}(t-\rm{TD})) \rm{\ if\ TD}\leq t<\rm{TSTOP}\\
+                \end{array}
+              \right.
+  \]
+
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{v1 1 0 sin(0 1 1meg 0 0)}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert sinusoidal voltage source v1 between nets 1 and 0. The initial DC value is set to the t=0 value. v(1) voltage sinusoidally changes from -1V to 1V with 1MHz frequency.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Exponential Waveform Syntax:}}
+
+\spicesyntax{\begin{tabular}{l}
+EXP ( [V1] [V2] [TD1] [TAU1] [TD2] [TAU2] )
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[V1]} & Initial value \\
+\texttt{[V2]} & Pulsed value \\
+\texttt{[TD1]} & Rise delay \\
+\texttt{[TAU1]} & Rise time constant \\
+\texttt{[TD2]} & Fall delay \\
+\texttt{[TAU2]} & Fall time constant
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    V(t)=\left\{
+                \begin{array}{l l}
+                  \rm{V1} \hspace{3.8in} \rm{if\ }0\leq t<\rm{TD1}\\
+                  \rm{V1}+(\rm{V2}-\rm{V1})(1-e^{-\frac{t-\rm{TD}}{\rm{TAU1}}})\hspace{1.9in}\rm{\ if\ TD1}\leq t<\rm{TD2}\\
+									\rm{V1}+(\rm{V2}-\rm{V1})(1-e^{-\frac{t-\rm{TD1}}{\rm{TAU1}}})+(\rm{V1}-\rm{V2})(1-e^{-\frac{t-\rm{TD2}}{\rm{TAU2}}})\rm{\ if\ TD2}\leq t<\rm{TSTOP}
+                \end{array}
+              \right.
+  \]
+
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{v1 1 0 exp(0 1 0 6n 20n 6n)}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert exponential voltage source v1 between nets 1 and 0. The initial DC value is set to the t=0 value.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Piecewise Linear Waveform Syntax:}}
+
+\spicesyntax{\begin{tabular}{l}
+PWL ( [T1] [V1] [T2] [V2] [T3] [V3] [T4] [V4] ... ) [INLINE PARAMS]
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[V1] [V2] ...} & Voltage points \\
+\texttt{[T1] [T2] ...} & Time points \\
+\texttt{[INLINE PARAMS]} & \begin{tabular}{lp{5.5cm}p{5cm}}\textit{Inline parameters :}\\ 
+																					{\small r : Repeat interval from r to the last [TN]} \\
+																					{\small td : Delay}
+																					\end{tabular}  
+\end{longtable}
+
+\textbf{\textit{FM Waveform Syntax:}}
+
+\spicesyntax{\begin{tabular}{l}
+SFFM ( [VO] [VA] [MDI] [FS] )
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[VO]} & Offset \\
+\texttt{[VA]} & Amplitude \\
+\texttt{[FC]} & Carrier frequency \\
+\texttt{[MDI]} & Modulation \\
+\texttt{[FS]} & Signal frequency 
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    V(t)=\rm{VO}+\rm{VA}\sin(2\pi\rm{FC}t+\rm{MDI\sin(2\pi\rm{FS}t)}) \nonumber
+  \]
+
+%\textbf{\textit{AM Waveform Syntax:}}
+%
+%\spicesyntax{\begin{tabular}{l}
+%AM ( [VA] [VO] [MF] [FC] [TD] )
+%\end{tabular}
+%}
+%
+%\begin{longtable}{l l}
+%\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+%\texttt{[VA]} & Amplitude \\
+%\texttt{[VO]} & Offset \\
+%\texttt{[MF]} & Modulating frequency \\
+%\texttt{[FC]} & Carrier frequency \\
+%\texttt{[TD]} & Delay 
+%\end{longtable}
+%
+%\textbf{\textit{Closed Form:}}
+%
+  %\[
+    %V(t)=\rm{VA}(\rm{VO}+\sin(2\pi\rm{MF}t)\sin(2\pi\rm{FC}t)) \nonumber
+  %\]
+\newpage
 \subsection{Linear Dependent Sources}
 \label{subsec_sceadm_lineardependentsources}
+
+\textbf{\textit{Voltage Controlled Current Source (VCCS):}}
+
+\spicesyntax{\begin{tabular}{l}
+GXX [N+] [N-] [NC+] [NC-] [VAL] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive current node/net \\
+\texttt{[N-]} & Negative current node/net \\
+\texttt{[NC+]} & Positive controlling voltage node/net \\
+\texttt{[NC-]} & Negative controlling voltage node/net \\
+\texttt{[VAL]} & Transconductance
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    \rm{I}(\rm{N+}\to\rm{N-})= \rm{VAL}\times(\rm{V}(\rm{NC+})-\rm{V}(\rm{NC-}))\nonumber
+  \]
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{g1 1 0 2 0 2}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert a current source between nets 1 and 0, and set its value to twice the voltage between 2 and 0.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Voltage Controlled Voltage Source (VCVS):}}
+
+\spicesyntax{\begin{tabular}{l}
+EXX [N+] [N-] [NC+] [NC-] [VAL] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive voltage node/net \\
+\texttt{[N-]} & Negative voltage node/net \\
+\texttt{[NC+]} & Positive controlling voltage node/net \\
+\texttt{[NC-]} & Negative controlling voltage node/net \\
+\texttt{[VAL]} & Gain
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    (\rm{V}(\rm{N+})-\rm{V}(\rm{N-}))= \rm{VAL}\times(\rm{V}(\rm{NC+})-\rm{V}(\rm{NC-}))\nonumber
+  \]
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{e1 1 0 2 0 2}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert a voltage source between nets 1 and 0, and set its value to twice the voltage between 2 and 0.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Current Controlled Current Source (CCCS):}}
+
+\spicesyntax{\begin{tabular}{l}
+FXX [N+] [N-] [VNAM] [VAL] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive current node/net \\
+\texttt{[N-]} & Negative current node/net \\
+\texttt{[VNAM]} & Voltage source  whose current is mirrored \\
+\texttt{[VAL]} & Gain
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    \rm{I}(\rm{N+}\to\rm{N-})= \rm{VAL}\times\rm{I}(\rm{VNAM})\nonumber
+  \]
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{f1 1 0 v1 2}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert a current source between nets 1 and 0, and set its value to twice the current flowing on v1.}\end{minipage}  
+\end{longtable}
+
+\textbf{\textit{Current Controlled Voltage Source (CCVS):}}
+
+\spicesyntax{\begin{tabular}{l}
+HXX [N+] [N-] [VNAM] [VAL] 
+\end{tabular}
+}
+
+\begin{longtable}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{[N+]} & Positive voltage node/net \\
+\texttt{[N-]} & Negative voltage node/net \\
+\texttt{[VNAM]} & Voltage source  whose current is mirrored \\
+\texttt{[VAL]} & Transresistance
+\end{longtable}
+
+\textbf{\textit{Closed Form:}}
+
+  \[
+    (\rm{V}(\rm{N+})-\rm{V}(\rm{N-}))= \rm{VAL}\times\rm{I}(\rm{VNAM})\nonumber
+  \]
+\textbf{\textit{Examples:}}
+
+\begin{longtable}{l l}
+\textit{statement} & \textit{explanation} \\ \hline \\ \vspace{-0.8\parskip} 
+\begin{minipage}{15em}\texttt{h1 1 0 v1 2}\end{minipage}  
+& 
+\begin{minipage}{15em}{\small Insert a voltage source between nets 1 and 0, and set its value to twice the current flowing on v1.}\end{minipage}  
+\end{longtable}
 
 \newpage
 \subsection{Behavioral Sources}
@@ -934,7 +1297,7 @@ Randomly generated number y such that -0.5 $<$ y $<$ 0.5
 \subsection{Special Behavioral Source Variables time, temper, temp, hertz}
 \textbf{\textit{'time', 'temper' and 'temp' are available in transient for the simulation time and temperature. For example "B1 1 0 v=sin($\rm{\left\{time\right\}}$)" produces a sinusoidal voltage source. 'hertz' is available in AC analyses but may slow the simulation.}}
 
-
+\newpage
 \section{Active Elements}
 \label{sec_sceadm_activeelements}
 
