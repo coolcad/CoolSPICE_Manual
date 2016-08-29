@@ -541,7 +541,7 @@ Analog
 
 \inserttip{CoolSPICE automatically inserts a resistor with resistance 1/gmin across each inductor to increase stability.}
 
-\inserttip{CoolSPICE automatically inserts a 1 m$\Omega$ resistor in series with each inductor to increase stability. This can be disabled globally or locally.}
+\inserttip{CoolSPICE automatically inserts a 1 m$\Omega$ resistor in series with each inductor to increase stability. This can be disabled locally by setting inline parameter 'rser' to zero.}
 
 
 {\color{darkgray}
@@ -1200,7 +1200,7 @@ Integral of x against the independent variable. 'o' is an optional offset parame
 \end{minipage}\\ \\
 
 idtmod(x[,ic[,mod[,off]]]), & \begin{minipage}{20em}
-Integral of x against the independent variable. 'ic' is an optional initial condition parameter. mod is an optional parameter, the function is reset on reaching mod. 'off' is an optional offset which is added to the output of the function. The effect is to bound the output of the function between zero + offset and 'mod' + offset.
+Integral of x against the independent variable. 'ic' is an optional initial condition parameter. mod is an optional parameter, the function is reset on reaching mod. 'off' is an optional offset which is added to the output of the function. The effect is to bound the output of the function between zero $+$ offset and 'mod' $+$ offset.
 \end{minipage}\\ \\
 
 inv(x) & \begin{minipage}{20em}
@@ -1239,7 +1239,7 @@ pwrs(x, y) & \begin{minipage}{20em}
 sgn(x)$\cdot$abs(x)$\rm{^y}$
 \end{minipage}\\ \\
 
-pwl(x, $\rm{x_1,y_1, x_2,y_2}$...), table(x, $\rm{x_1,y_1, x_2,y_2}$...) & \begin{minipage}{20em}
+pwl(x, $\rm{x_1,y_1, x_2,y_2}$...),\\ table(x, $\rm{x_1,y_1, x_2,y_2}$...) & \begin{minipage}{20em}
 Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls. Note that the x values of the points must increase monotonically.
 \end{minipage}\\ \\
 
@@ -1267,11 +1267,8 @@ sqrt(x) & \begin{minipage}{20em}
 y=$\sqrt{\rm{x}}$, note that if x is less than zero this function returns the square root of the absolute value of x
 \end{minipage}\\ \\
 
-%table(x, x1,y1, x2,y2, ... ) & \begin{minipage}{20em}
-%Piecewise linear function where the answer value y, is interpolated base on the pair of points between which x falls.
-%\end{minipage}\\ \\
-
-ternary\_fcn(x, y, z), if(x, y, z), x ? y : z & \begin{minipage}{20em}
+ternary\_fcn(x, y, z), \\
+if(x, y, z), x ? y : z & \begin{minipage}{20em}
 x ? y : z, (read as "if x then y else z") note the question mark must be followed by a blank space for the parser
 \end{minipage}\\ \\
 
