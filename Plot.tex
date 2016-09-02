@@ -173,22 +173,24 @@ A list of menu items for the Plotter can be found in the Appendix Section.
 
 All SPICE commands, including analysis commands, begin with ``.", such as ``\texttt{.include}", ``\texttt{.tran}", or ``\texttt{.end}".  Component descriptions begin with a single character indicating the type of the component, such as \texttt{M} for MOSFETs, \texttt{D} for diodes and \texttt{R} for resistors.  
 
-\mymarginnote{Beginning \\and ending} The first line of any SPICE file must be a title line.  The last line of any SPICE file must be an \texttt{.end} statement: 
+\mymarginnote{Beginning \\and ending} The first line of any SPICE file must be a commented title line starting with '*'.  The last line of any SPICE file must be an \texttt{.end} statement: 
 
 \spicesyntax{.end}
 
-\mymarginnote{Commenting} The comment character is \texttt{*} at the beginning of a line.  For example, in the following code snippet, the first and third lines are comments:
+\mymarginnote{Commenting} The comment character is '*' and is placed at the beginning of a line. For example, in the following code snippet, the first and third lines are comments:
 
 \spicesyntax{\begin{tabular}{ll}
 &* Trying two resistor values by commenting one out at a time \\
 &R12 N2 N3 40k \\
-&*R12 N2 N2 60k \\
+&*R12 N2 N3 60k \\
 &C12 N2 N3 10p
 \end{tabular}
 }
 
+Multiple lines can commented and uncommented \makekey{CTRL}-\makekey{K} and \makekey{CTRL}-\makekey{SHIFT}-\makekey{K}, useful for disabling and enabling blocks of the netlist.\\
 
-\mymarginnote{Multi-line \\ statements} When a statement continues for more than a single line in the text file, the \texttt{+} character must be used to indicate the new line is a continuation of the previous statement.  For instance:
+
+\mymarginnote{Multi-line \\ statements} When a statement continues for more than a single line in the text file, the \texttt{+} character must be used to indicate the new line is a continuation of the previous statement. For instance:
 
 \spicesyntax{\begin{tabular}{ll}
 &.model newpmos pmos ( LEVEL   = 49 \\
@@ -198,7 +200,7 @@ All SPICE commands, including analysis commands, begin with ``.", such as ``\tex
 \end{tabular}}
 
 
-\mymarginnote{The \texttt{.include} statement} The \texttt{.include} statement is used to include subcircuit and device model definitions from another text file containing \texttt{.subckt} and \texttt{.model} statements.  For long, complicated circuits, this allows the user to keep the main circuit topography, simulation options and simulation commands in one file while keeping the device and subcircuit definitions in auxiliary files.  For example, 
+\mymarginnote{The \texttt{.include} statement} The \texttt{.include} statement is used to include subcircuit and device model definitions from another text file containing \texttt{.subckt} and \texttt{.model} statements. For long, complicated circuits, this allows the user to keep the main circuit topography, simulation options and simulation commands in one file while keeping the device and subcircuit definitions in auxiliary files.  For example, 
 
 \spicesyntax{\begin{tabular}{l}
 * Schematics Netlist * \\
@@ -215,7 +217,7 @@ VVS1 VDD 0   DC  3     \\
  
 In this example, the models \texttt{nmos0p5} and \texttt{pmos0p5} must be defined in the file \textsf{../Models/MyMOS.txt}. More details about the \texttt{.include} statement can be found elsewhere.  
 
-The \texttt{.subckt} statement is used to define a subcircuit, \mymarginnote{The \texttt{.subckt} statement} which acts like a device model which incorporates other device models.  Once defined, multiple instances of the subcircuit can then be invoked  throughout the main circuit just as the case for a regular device. 
+The \texttt{.subckt} statement is used to define a subcircuit, \mymarginnote{The \texttt{.subckt} statement} which acts like a device model which incorporates other device models. Once defined, multiple instances of the subcircuit can then be invoked  throughout the main circuit just as the case for a regular device. Parameters defined within a subcircuit are visible only within the scope of that subcircuit, and if two parameters of the same name exist within nested scopes the parameter of the smaller scope is utilized. Subcircuits can be nested.
 
 
 \subsection{Editing and Running a Netlist}
@@ -223,9 +225,9 @@ The \texttt{.subckt} statement is used to define a subcircuit, \mymarginnote{The
 
 To run the Netlist Editor, click on the \textsf{Netlist Editor} button on the CoolSPICE main console window.
 
-\menuitem{File}{New} or \makekey{CTRL}-\makekey{N} will open a new, empty file. A SPICE netlist can simply be typed in and saved by \menuitem{File}{Save} or \makekey{CTRL}-\makekey{S}.  For the syntax, see Section \ref{subsec_pane_spicenetlistsyntax} above.  
+\menuitem{File}{New}, \makebutton{New} toolbar button or \makekey{CTRL}-\makekey{N} will open a new, empty file. A SPICE netlist can simply be typed in and saved by \menuitem{File}{Save} or \makekey{CTRL}-\makekey{S}.  For the syntax, see Section \ref{subsec_pane_spicenetlistsyntax} above.  
 
-More often, an existing netlist generated by the Schematic Editor is opened to be edited by \menuitem{File}{Open} or \makekey{CTRL}-\makekey{O}.  Figure \ref{fig_netlisteditor_netlistexample1} shows an example circuit and its netlist opened in the Netlist Editor after being generated by the Schematic Editor.  It is possible to save an open netlist under another name by \menuitem{File}{Save As}.
+More often, an existing netlist generated by the Schematic Editor is opened to be edited by \menuitem{File}{Open} or \makekey{CTRL}-\makekey{O}.  Figure \ref{fig_netlisteditor_netlistexample1} shows an example circuit and its netlist opened in the Netlist Editor after being generated by the Schematic Editor.  It is possible to save an open netlist under another name with the \menuitem{File}{Save As} or \makekey{CTRL}-\makekey{SHIFT}-\makekey{N}.
 
 \begin{figure}[bh]
   \centering
@@ -239,19 +241,20 @@ To run the SPICE netlist, press \makekey{F5}, use the \menuitem{Run}{Run Netlist
 \subsection{Netlist Editor Options}
 \label{subsec_pane_netlisteditoroptions}
 
-The options available under the \textsf{\textbf{Options}} menu are the same as those available under the \menuitem{SPICE}{Preferences} of the Schematic Editor.  These are all toggle-on or toggle-off options.  
+The options available under the \textsf{\textbf{Options}} menu are the same as those available under the \menuitem{SPICE}{Preferences} of the Schematic Editor with one exception, Syntax Highlighting. These are all toggle-on or toggle-off options.  
 
 \textsf{\textbf{Open Plotter}}, if checked, will automatically launch the Plotter after a simulation is successfully completed.  If this option is checked but there are no plottable results (e.g. due to convergence problems or a netlist error) an error message window will show up instead.
 
 \textsf{\textbf{Show Rawfile}}, if checked, will automatically display the raw result data of the simulation after the simulation is successfully completed.
 
-\textsf{\textbf{Show Logfile}}, if checked, will automatically display the simulation log file after the simulation or simulation attempt is complete.
+\textsf{\textbf{Show Logfile}}, if checked, will automatically display the simulation log file after the simulation or simulation attempt is complete. Note that the log file for the most recent run of the netlist can be opened at anytime with \makekey{CTRL}-\makekey{L}.
 
 \textsf{\textbf{Measure (No Rawfile)}} only applies to netlists containing a \texttt{.measure} statement and asks the program to look for and display only the log file output with the measurement results after the simulation is complete.
 
+\textsf{\textbf{Highlight}}, if checked, will automatically color lines of the netlist according to their type, e.g. green for comments. Syntax Highlighting can also be toggled with \makekey{CTRL}-\makekey{H} or the Syntax Highlight toolbar button.
+
 As a display option, the button ``Syntax Highlight On-Off" (see Section \ref{subsec_pane_netlisteditorguireference}) will turn the color-coding of the SPICE commands on or off.
 
-\subsection{Netlist Editor GUI Reference}
 \label{subsec_pane_netlisteditorguireference}
 
 \begin{figure}[htb]
