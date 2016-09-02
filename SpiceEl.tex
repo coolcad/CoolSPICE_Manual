@@ -50,11 +50,11 @@ The SPICE netlist line for each type of circuit element must start with a specif
 \texttt{T} & Transmission Lines (Section \ref{subsec_sceadm_transmissionlines}) \\
 
 \end{tabular}
-
+\newpage
 \section{Passive Elements}
 \label{sec_sceadm_passiveelements}
 
-\newpage
+
 \subsection{RXX : Resistors}
 \label{subsec_sceadm_resistors}
 
@@ -1377,6 +1377,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 																					{\small cond} & {\small Ohmic conductance} 
 \end{longtable}																				
 
+\textbf{\textit{Diode Equations:}}
 
 \textbf{\textit{Temperature Dependent Terms:}}
 
@@ -1384,33 +1385,33 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 
 \begin{eqnarray}
 \rm{T = CKTtemp+dtemp} \nonumber \\
-\rm{dt = T-tnom} \nonumber \\
+\rm{dt = T-Tnom} \nonumber \\
 \rm{vt = \frac{k\times T}{q}} \nonumber \\
-\rm{vtnom = \frac{k\times tnom}{q}} \nonumber \\
-\rm{DIOtGradingCoeff = m\times (1+tm1\times dt+tm2\times dt^2)}\nonumber\\
+\rm{vtnom = \frac{k\times Tnom}{q}} \nonumber \\
+\rm{\overline{mj} = mj\times (1+tm1\times dt+tm2\times dt^2)}\nonumber\\
 %\rm{fact2 = \frac{T}{300.15}} \nonumber\\
-\rm{egfet = 1.16-\frac{7.02\times 10^{-4}\times T^2}{T+1108}} \nonumber\\
-%\rm{arg = -\frac{egfet}{2kT} + \frac{1.1150877}{2\times 300.15}}\nonumber\\
-\rm{pbfact = -2vt\times\left(1.5\log\left(\frac{T}{300.15}\right)+q\times \left(-\frac{egfet}{2kT} + \frac{1.1150877}{2k\times 300.15}\right)\right)}\nonumber\\
-\rm{egfet1 = 1.16-\frac{7.02\times 10^{-4}\times tnom^2}{tnom+1108}}\nonumber\\
-%\rm{arg1 = -\frac{egfet1}{2kT} + \frac{1.1150877}{2\times 300.15}}\nonumber\\
-%\rm{fact1 = \frac{tnom}{300.15}} \nonumber\\
-\rm{pbfact1 = -2vtnom\times\left(1.5\log\left(\frac{tnom}{300.15}\right)+q\times \left(-\frac{egfet1}{2kT} + \frac{1.1150877}{2\times 300.15}\right)\right)}\nonumber 
+\rm{\overline{Eg} = 1.16-\frac{7.02\times 10^{-4}\times T^2}{T+1108}} \nonumber\\
+%\rm{arg = -\frac{\overline{Eg}}{2kT} + \frac{1.1150877}{2\times 300.15}}\nonumber\\
+\rm{\overline{pb} = -2vt\times\left(1.5\log\left(\frac{T}{300.15}\right)+q\times \left(-\frac{\overline{Eg}}{2kT} + \frac{1.1150877}{2k\times 300.15}\right)\right)}\nonumber\\
+\rm{\overline{Eg}1 = 1.16-\frac{7.02\times 10^{-4}\times Tnom^2}{Tnom+1108}}\nonumber\\
+%\rm{arg1 = -\frac{\overline{Eg}1}{2kT} + \frac{1.1150877}{2\times 300.15}}\nonumber\\
+%\rm{fact1 = \frac{Tnom}{300.15}} \nonumber\\
+\rm{\overline{pb}1 = -2vtnom\times\left(1.5\log\left(\frac{Tnom}{300.15}\right)+q\times \left(-\frac{\overline{Eg}1}{2kT} + \frac{1.1150877}{2\times 300.15}\right)\right)}\nonumber 
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Junction capacitance variables :}}
+\noindent{\color{darkblue}\textbf{Junction capacitance variables :}}
 
-\textbf{if tlevc is equal to 0 then}
+\noindent\textbf{if tlevc is equal to 0 then}
 {\color{darkgray}
 \begin{eqnarray}
 %\rm{} \nonumber \\
-\rm{pbo = \frac{vj-pbfact1}{\frac{tnom}{300.15}}}\nonumber \\
+\rm{pbo = \frac{vj-\overline{pb}1}{\frac{Tnom}{300.15}}}\nonumber \\
 \rm{gmaold = \frac{vj-pbo}{pbo}}\nonumber \\
-\rm{tJctCap = \frac{cj}{1+tGradingCoeff\times(400\times 10^{-6}\times (tnom-300.15)-gmaold)}}\nonumber \\
-\rm{tJctPot = pbfact+\frac{T}{300.15}\times pbo}\nonumber \\
-\rm{gmanew = \frac{tJctPot-pbo}{pbo}}\nonumber \\
-\rm{tJctCap=  }\hspace{4.5in}\nonumber \\
-\rm{tJctCap\times\left(1+tGradingCoeff\times
+\rm{\overline{tcj} = \frac{cj}{1+\overline{mj}\times(400\times 10^{-6}\times (Tnom-300.15)-gmaold)}}\nonumber \\
+\rm{\overline{tjp} = \overline{pb}+\frac{T}{300.15}\times pbo}\nonumber \\
+\rm{gmanew = \frac{\overline{tjp}-pbo}{pbo}}\nonumber \\
+\rm{\overline{tcj}=  }\hspace{4.5in}\nonumber \\
+\rm{\overline{tcj}\times\left(1+\overline{mj}\times
                             (400\times 10^{-6}\times (T-300.15)-gmanew)\right)}\nonumber 
 %\rm{} \nonumber \\
 \end{eqnarray}
@@ -1418,7 +1419,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \textbf{else}
 {\color{darkgray}
 \begin{eqnarray}
-\rm{tJctCap = cj\times cta\times (T-300.15)}\nonumber \\
+\rm{\overline{tcj} = cj\times cta\times (T-300.15)}\nonumber \\
 \nonumber 
 \end{eqnarray}
 }
@@ -1426,13 +1427,13 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 {\color{darkgray}
 \begin{eqnarray}
 %\rm{}} \nonumber \\
-\rm{pbosw = \frac{vjsw-pbfact1}{\frac{tnom}{300.15}}}\nonumber \\
+\rm{pbosw = \frac{vjsw-\overline{pb}1}{\frac{Tnom}{300.15}}}\nonumber \\
 \rm{gmaold = \frac{vjsw-pbosw}{pbosw}}\nonumber \\
-\rm{tJctSWCap = \frac{cjsw}{1+tGradingCoeff\times(400\times 10^{-6}(tnom-300.15)-gmaold)}}\nonumber \\
-\rm{tJctSWPot = pbfact+\frac{T}{300.15}\times pbosw}\nonumber \\
-\rm{gmanew = \frac{tJctSWPot-pbosw}{pbosw}}\nonumber \\
-\rm{tJctSWCap = }\hspace{4.5in}\nonumber \\
-\rm{tJctSWCap(1+tGradingCoeff\times
+\rm{\overline{tcjsw} = \frac{cjsw}{1+\overline{mj}\times(400\times 10^{-6}(Tnom-300.15)-gmaold)}}\nonumber \\
+\rm{\overline{tjswp} = \overline{pb}+\frac{T}{300.15}\times pbosw}\nonumber \\
+\rm{gmanew = \frac{\overline{tjswp}-pbosw}{pbosw}}\nonumber \\
+\rm{\overline{tcjsw} = }\hspace{4.5in}\nonumber \\
+\rm{\overline{tcjsw}(1+\overline{mj}\times
                             (400\times 10^{-6}\times(T-300.15)-gmanew))}\nonumber 
 \end{eqnarray}
 }
@@ -1440,93 +1441,139 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 {\color{darkgray}
 \begin{eqnarray}
 %\rm{} \nonumber \\
-\rm{tJctSWCap = cjsw\times cta(T-300.15)}\nonumber
+\rm{\overline{tcjsw} = cjsw\times cta(T-300.15)}\nonumber
 \end{eqnarray}
 }
 
-{\color{darkblue}\textbf{Saturation current variables :}}
+\noindent{\color{darkblue}\textbf{Saturation current variables :}}
 \begin{eqnarray}
-\rm{tSatCur = js\times \exp\left(
-     \left(\frac{T}{tnom}-1\right)\frac{eg}{n\times vt}
-     +\frac{xti}{n}\log\left(\frac{T}{tnom}\right) \right)}\nonumber \\
-\rm{tSatSWCur = jsw\times \exp\left(
-     \left(\frac{T}{tnom}-1\right)\frac{eg}{n\times vt}
-     +\frac{xti}{n}\log\left(\frac{T}{tnom}\right) \right)}\nonumber										
+\rm{\overline{tjs} = js\times \exp\left(
+     \left(\frac{T}{Tnom}-1\right)\frac{eg}{n\times vt}
+     +\frac{xti}{n}\log\left(\frac{T}{Tnom}\right) \right)}\nonumber \\
+\rm{\overline{tjsw} = jsw\times \exp\left(
+     \left(\frac{T}{Tnom}-1\right)\frac{eg}{n\times vt}
+     +\frac{xti}{n}\log\left(\frac{T}{Tnom}\right) \right)}\nonumber										
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Additional variables :}}
-
+\noindent{\color{darkblue}\textbf{Additional variables :}}
 \begin{eqnarray}
-\rm{tF1=tJctPot\times
-                    \frac{1-exp((1-tGradingCoeff)\times \log\left(1- fc\right))}{1-tGradingCoeff}
+\rm{tF1=\overline{tjp}\times
+                    \frac{1-exp((1-\overline{mj})\times \log\left(1- fc\right))}{1-\overline{mj}}
 										}\nonumber \\		
-\rm{tF2=exp((1+tGradingCoeff)\times \log\left(1- fc\right))}\nonumber \\
-\rm{tF3=1-fc\times(1+tGradingCoeff)}\nonumber \\
+\rm{tF2=exp((1+\overline{mj})\times \log\left(1- fc\right))}\nonumber \\
+\rm{tF3=1-fc\times(1+\overline{mj})}\nonumber \\
 \rm{tF2SW=exp((1+mjsw)\times \log\left(1- fcs\right))}\nonumber \\
 \rm{tF3SW=1-fcs\times(1+mjsw)}\nonumber 																										
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Depletion capacitance variables :}}
-
+\noindent{\color{darkblue}\textbf{Depletion capacitance variables :}}
 \begin{eqnarray}
-\rm{tDepCap=tJctPot\times fc}\nonumber 								
+\rm{\overline{tCdep}=\overline{tjp}\times fc}\nonumber 								
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Vcrit :}}
-
+\noindent{\color{darkblue}\textbf{Vcrit :}}
 \begin{eqnarray}
 \rm{vte = n\times vt}\nonumber \\		
-\rm{tVcrit=vte\times \log\left(\frac{vte}{(\sqrt{2}\times tSatCur\times area)}\right)}\nonumber 						
+\rm{tVcrit=vte\times \log\left(\frac{vte}{(\sqrt{2}\times \overline{tjs}\times area)}\right)}\nonumber 						
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Transit time :}}
-
+\noindent{\color{darkblue}\textbf{Transit time :}}
 \begin{eqnarray}
-\rm{tTransitTime=tt\times \left( 1+TTT1\times dt + TTT2\times dt^2 \right)}\nonumber 								
+\rm{\overline{ttt}=tt\times \left( 1+TTT1\times dt + TTT2\times dt^2 \right)}\nonumber 								
 \end{eqnarray}
 
-{\color{darkblue}\textbf{Series resistance :}}
-
+\noindent{\color{darkblue}\textbf{Series resistance :}}
 \begin{eqnarray}
-\rm{tConductance=\frac{1}{rs}\times \frac{1}{1+trs\times dt+trs2\times dt^2}}\nonumber 								
+\rm{\overline{tgs}=\frac{1}{rs}\times \frac{1}{1+trs\times dt+trs2\times dt^2}}\nonumber 								
 \end{eqnarray}
 
 
-\textbf{\textit{Current-Voltage Terms:}}
+\noindent\textbf{\textit{Current-Voltage Terms:}}
 
-{\color{darkblue}\textbf{ DC Current :}}
+\noindent{\color{darkblue}\textbf{ DC Current :}}
 
 \[
-\rm{cd} =
-\left\{
-\begin{array}{l l}
-
-	\left\{
-	\begin{array}{l l}	
-	\rm{csat\times(\exp(vd/vte)-1) + gmin\times vd\nonumber\hspace{0.1in}(ikf\leq 0)} \\
-	\rm{\frac{csat\times(\exp(vd/vte)-1)}{1+\sqrt{\frac{csat\times(\exp(vd/vte)-1)}{ikf\times area\times m}}} + gmin\times vd\nonumber \hspace{0.5in}(ikf>0)}
-	\end{array}
-	\right.\nonumber \hspace{0.2in} \rm{(vd\geq-3\times vte)}\\
-
-	\left\{
-	\begin{array}{l l}	
-	\rm{-csat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right) + gmin\times vd\nonumber \hspace{0.2in}(ikr\leq 0)} \\
-	\rm{\frac{-csat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{1+\sqrt{\frac{-csat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{-ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.4in}(ikr>0)}
-	\end{array}
-	\right.\nonumber \hspace{0.2in} \rm{(-BV \geq vd<-3\times vte)}\\
-		
-	\left\{
-	\begin{array}{l l}	
-	\rm{-csat\times\exp(-\frac{BV+vd}{vte}) + gmin\times vd\nonumber\hspace{0.4in}(ikr\leq 0)} \\
-	\rm{\frac{-csat\times\exp(-\frac{BV+vd}{vte})}{1+\sqrt{\frac{-csat\times\exp(-\frac{BV+vd}{vte})}{ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.45in}(ikr>0)}
-	\end{array}
-	\right.\nonumber \hspace{0.2in} \rm{(vd<-BV)}\\
-			
-\end{array}
-\right.\nonumber
+\rm{Isat=(\overline{tjs}\times area+\overline{tjsw}\times pj)\times m}\nonumber
 \]
 
+\[
+\rm{Id} =
+%\left\{
+\begin{array}{l l}
+	\left\{
+	\begin{array}{l l}	
+	\rm{Isat\times(\exp(vd/vte)-1) + gmin\times vd\nonumber\hspace{0.1in}(ikf\leq 0)} \\
+	\rm{\frac{Isat\times(\exp(vd/vte)-1)}{1+\sqrt{\frac{Isat\times(\exp(vd/vte)-1)}{ikf\times area\times m}}} + gmin\times vd\nonumber \hspace{0.5in}(ikf>0)}
+	\end{array}
+	\right.\nonumber \hspace{0.2in} \rm{(vd\geq-3\times vte)}\\
+	\left\{
+	\begin{array}{l l}	
+	\rm{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right) + gmin\times vd\nonumber \hspace{0.2in}(ikr\leq 0)} \\
+	\rm{\frac{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{1+\sqrt{\frac{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{-ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.4in}(ikr>0)} 
+	\end{array}
+	\right.\nonumber \hspace{0.2in} \rm{(-BV \geq vd<-3\times vte)}\\	
+	\left\{
+	\begin{array}{l l}	
+	\rm{-Isat\times\exp(-\frac{BV+vd}{vte}) + gmin\times vd\nonumber\hspace{0.35in}(ikr\leq 0)} \\
+	\rm{\frac{-Isat\times\exp(-\frac{BV+vd}{vte})}{1+\sqrt{\frac{-Isat\times\exp(-\frac{BV+vd}{vte})}{ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.5in}(ikr>0)}
+	\end{array}
+	\right.\nonumber \hspace{0.2in} \rm{(vd<-BV)}		
+\end{array}
+%\right.\nonumber
+\]
 
+\noindent{\color{darkblue}\textbf{ Charge Storage :}}
+
+\begin{eqnarray}
+\rm{czero=\overline{tcj}\times area\times m}\nonumber\\
+\rm{czeroSW=\overline{tcjsw}\times pj\times m}\nonumber
+\end{eqnarray}
+
+\[
+\rm{Qd} =
+%\left\{
+\begin{array}{l l}
+	\left\{
+	\begin{array}{l l}	
+	\rm{\overline{ttt}\times Id \nonumber} \\
+	\rm{\ \ +\overline{tjp}\times czero\times \frac{1-\left(1-\frac{vd}{\overline{tjp}}\right)\times \exp\left(-\overline{mj}\times\log\left(1-\frac{vd}{\overline{tjp}}\right)\right)}{1-\overline{mj}}\nonumber} \\
+	\rm{\ \ +\overline{tjswp}\times czeroSW\times \frac{1-\left(1-\frac{vd}{\overline{tjswp}}\right)\times \exp\left(-\overline{mj}\times\log\left(1-\frac{vd}{\overline{tjswp}}\right)\right)}{1-\overline{mj}}\nonumber}
+	\end{array}
+	\right.\nonumber \hspace{0.2in} \rm{\ (vd<\overline{tCdep})}\\
+	\left\{
+	\begin{array}{l l}	
+	\rm{\overline{ttt}\times Id + czero\times tF1 \nonumber} \\
+	\rm{\ \ +\frac{czero}{tF2}\times\left(tF3\times(vd-\overline{tCdep})+\frac{\overline{mj}}{2\times \overline{tjp}}\times(vd^2-\overline{tCdep}^2)\right)} \nonumber \\
+	\rm{\ \ +\frac{czeroSW}{tF2SW}\times\left(tF3SW\times(vd-\overline{tCdep})+\frac{\overline{mj}}{2\times \overline{tjswp}}\times(vd^2-\overline{tCdep}^2)\right)} \nonumber	
+	\end{array}
+	\right.\nonumber \hspace{-0.5in} \rm{\ (vd\geq \overline{tCdep})}		
+\end{array}
+%\right.\nonumber
+\]
+
+\noindent{\color{darkblue}\textbf{ Capacitance :}}
+
+\[
+\rm{Cd} =
+%\left\{
+\begin{array}{l l}
+	\left\{
+	\begin{array}{l l}	
+	\rm{\overline{ttt}\times \frac{\partial Id}{\partial vd} \nonumber} \\
+	\rm{\ \ +czero\times\exp\left(-\overline{mj}\times\log\left(1-\frac{vd}{\overline{tjp}}\right)\right)\nonumber} \\
+	\rm{\ \ +czeroSW\times \exp\left(-\overline{mj}\times\log\left(1-\frac{vd}{\overline{tjswp}}\right)\right)\nonumber}
+	\end{array}
+	\right.\nonumber \hspace{0.8in} \rm{\ (vd<\overline{tCdep})}\\
+	\left\{
+	\begin{array}{l l}	
+	\rm{\overline{ttt}\times \frac{\partial Id}{\partial vd} + czero\times tF1 \nonumber} \\
+	\rm{\ \ +\frac{czero}{tF2}\times\left(tF3+\frac{\overline{mj}}{\overline{tjp}}\times vd\right)} \nonumber \\
+	\rm{\ \ +\frac{czero}{tF2SW}\times\left(tF3SW+\frac{\overline{mj}}{\overline{tjswp}}\times vd\right)} \nonumber	
+	\end{array}
+	\right.\nonumber \hspace{1.5in} \rm{\ (vd\geq \overline{tCdep})}		
+\end{array}
+%\right.\nonumber
+\]
 
 \newpage
 \subsection{QXX : BJTs}
