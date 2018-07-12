@@ -2,6 +2,44 @@
 
 \label{chap_thermalsimulations_tas}
 
+CoolSPICE now supports two types of thermal effects, for three types of devices. The devices are SiC/GaN MOSFETs, diodes, and resistors. 
+For each of these, thermal analysis can be performed to simulate the effect of self-heating, and the effect of thermal coupling. 
+Then, the junction temperature or the case (ambient) temperature of the devices may be outputted as traces on the Plotter. \\
+
+In order for thermal simulation to be possible for these devices, the devices must include RTH or CTH device parameters. These parameters may 
+be specified as model parameters within a model definition, or as instance parameters, included inline when an instance of one of the devices
+is called within the netlist. \\
+
+\begin{tabular}{l l}
+\textit{parameter} & \textit{description} \\ \hline \\ \vspace{-0.8\parskip}
+\texttt{RTH} & Value of the thermal resistance for MOSFET \\
+\texttt{CTH} & Value of the thermal capacitance for MOSFET \\
+\texttt{RTHHS} & Value of the thermal resistance for Heat Sink \\
+\texttt{CTHHS} & Value of the thermal capacitance for Heat Sink \\
+\texttt{RTHD} & Value of the thermal resistance for Diode \\
+\texttt{CTHD} & Value of the thermal capacitance for Diode \\
+\texttt{RTHDM} & Value of the thermal resistance for Diode and MOSFET thermal coupling \\
+\end{tabular}
+
+\section{Netlist Syntax}
+\label{subsec_sceadm_thermalnetsyntax}
+
+In order to first enable thermal analysis, the following option card must be included in the netlist.
+
+\spicesyntax{.option heaton} 
+
+Next, when you include the device that you'd like to enable thermal simulation for, the RTH or CTH (or both) instance parameters must be included
+inline with the model call. For example for a CMF10120 MOSFET,
+
+\spicesyntax{Mxxx D G S S CMF10120 tamb=27 rd=0.08 rg=10 rth=0.2 cth=5e-5}
+
+Lastly, to save the trace of either the Junction Temperature (TJ) or the Case/Ambient Temperature of a device, all you need to do is use the
+device instance parameter syntax (Section \ref{subsec_satco_savestatement}). Then, you're all done! \\
+
+
+
+
+
 
 
 
