@@ -1410,7 +1410,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \rm{\overline{tcj} = \frac{cj}{1+\overline{mj}\times(400\times 10^{-6}\times (Tnom-300.15)-gmaold)}}\nonumber \\
 \rm{\overline{tjp} = \overline{pb}+\frac{T}{300.15}\times pbo}\nonumber \\
 \rm{gmanew = \frac{\overline{tjp}-pbo}{pbo}}\nonumber \\
-\rm{\overline{tcj}=  }\hspace{4.5in}\nonumber \\
+\rm{\overline{tcj} = \ }
 \rm{\overline{tcj}\times\left(1+\overline{mj}\times
                             (400\times 10^{-6}\times (T-300.15)-gmanew)\right)}\nonumber 
 %\rm{} \nonumber \\
@@ -1432,8 +1432,8 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \rm{\overline{tcjsw} = \frac{cjsw}{1+\overline{mj}\times(400\times 10^{-6}(Tnom-300.15)-gmaold)}}\nonumber \\
 \rm{\overline{tjswp} = \overline{pb}+\frac{T}{300.15}\times pbosw}\nonumber \\
 \rm{gmanew = \frac{\overline{tjswp}-pbosw}{pbosw}}\nonumber \\
-\rm{\overline{tcjsw} = }\hspace{4.5in}\nonumber \\
-\rm{\overline{tcjsw}(1+\overline{mj}\times
+\rm{\overline{tcjsw} = \ }
+\rm{\overline{tcjsw}\times(1+\overline{mj}\times
                             (400\times 10^{-6}\times(T-300.15)-gmanew))}\nonumber 
 \end{eqnarray}
 }
@@ -1502,19 +1502,19 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 \begin{array}{l l}
 	\left\{
 	\begin{array}{l l}	
-	\rm{Isat\times(\exp(vd/vte)-1) + gmin\times vd\nonumber\hspace{0.1in}(ikf\leq 0)} \\
+	\rm{Isat\times(\exp(vd/vte)-1) + gmin\times vd\nonumber\hspace{0.1in}(ikf\leq 0)} \vspace{0.1in} \\ 
 	\rm{\frac{Isat\times(\exp(vd/vte)-1)}{1+\sqrt{\frac{Isat\times(\exp(vd/vte)-1)}{ikf\times area\times m}}} + gmin\times vd\nonumber \hspace{0.5in}(ikf>0)}
-	\end{array}
-	\right.\nonumber \hspace{0.2in} \rm{(vd\geq-3\times vte)}\\
+	\end{array} 
+	\right.\nonumber \hspace{0.2in} \rm{(-3\times vte\leq vd)}\\ \\
 	\left\{
 	\begin{array}{l l}	
-	\rm{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right) + gmin\times vd\nonumber \hspace{0.2in}(ikr\leq 0)} \\
+	\rm{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right) + gmin\times vd\nonumber \hspace{0.2in}(ikr\leq 0)} \vspace{0.1in} \\
 	\rm{\frac{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{1+\sqrt{\frac{-Isat\times\left(1+\left(\frac{3\times vte}{e\times vd}\right)^3\right)}{-ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.4in}(ikr>0)} 
 	\end{array}
-	\right.\nonumber \hspace{0.2in} \rm{(-BV \geq vd<-3\times vte)}\\	
+	\right.\nonumber \hspace{0.2in} \rm{(-BV \leq vd<-3\times vte)}\\	\\
 	\left\{
 	\begin{array}{l l}	
-	\rm{-Isat\times\exp(-\frac{BV+vd}{vte}) + gmin\times vd\nonumber\hspace{0.35in}(ikr\leq 0)} \\
+	\rm{-Isat\times\exp(-\frac{BV+vd}{vte}) + gmin\times vd\nonumber\hspace{0.35in}(ikr\leq 0)} \vspace{0.1in} \\
 	\rm{\frac{-Isat\times\exp(-\frac{BV+vd}{vte})}{1+\sqrt{\frac{-Isat\times\exp(-\frac{BV+vd}{vte})}{ikr\times area\times m}}} + gmin\times vd\nonumber \hspace{0.5in}(ikr>0)}
 	\end{array}
 	\right.\nonumber \hspace{0.2in} \rm{(vd<-BV)}		
@@ -1522,6 +1522,7 @@ DXX [N+] [N-] [MODEL] [INLINE PARAMS] \\
 %\right.\nonumber
 \]
 
+\clearpage
 \noindent{\color{darkblue}\textbf{ Charge Storage :}}
 
 \begin{eqnarray}
