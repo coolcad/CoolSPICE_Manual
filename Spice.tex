@@ -472,7 +472,7 @@ x $>$ 0 ? x : 0
 \label{subsec_satco_savestatement}
 
 \index{SPICE!statements!.save}
-The \texttt{.save} statement is used to save node voltage and branch current values in the output rawfile. The Plotter can display these values as traces. The netlister automatically inserts the relevant \texttt{.save} statements in the netlist when the components \textsf{Probe - Ammeter} and \textsf{Probe - Voltmeter} from the \textsf{Analog} library are used in the Schematic Editor (see Section \ref{subsec_se_probes}). Besides voltage and current values, the \texttt{.save} statement can be used to retrieve device instance parameters. For example, you can request to see the trace of the "Drain/Source and channel coupling capacitance" (CSDC) of a SiC MOSFET, or more interestingly, perhaps the "Junction Temperature" (TJ) of that MOSFET.
+The \texttt{.save} statement is used to save node voltage and branch current values in the output rawfile. The Plotter can display these values as traces. The netlister automatically inserts the relevant \texttt{.save} statements in the netlist when the components \textsf{Probe - Ammeter} and \textsf{Probe - Voltmeter} from the \textsf{Analog} library are used in the Schematic Editor (see Section \ref{subsec_se_probes}).  
 
 \inserttip{Note that it is only possible to save the current through an independent voltage source.  The current probe component in the Schematic Editor is actually a zero-volt DC source.}
 
@@ -480,15 +480,13 @@ The \texttt{.save} statement is used to save node voltage and branch current val
 
 \spicesyntax{\begin{tabular}{ll}
 .save & v([NODELABEL]) \\
-.save & i([VOLTAGESOURCEREF]) \\
-.save & @DEVICENAME[PARAM]
+.save & i([VOLTAGESOURCEREF])
 \end{tabular}}
 
 \begin{tabular}{lp{5.5cm}p{5cm}}
 \textit{parameter} & \textit{description} & \textit{Schematic Editor option}\\ \hline \\ \vspace{-0.8\parskip}
 \texttt{[NODELABEL]} & The label or name of a node in the circuit. & \textsf{N/A} \\
-\texttt{[VOLTAGESOURCEREF]} & {The Reference Name of a voltage source or a current probe, prefixed with a ``\texttt{V}" if taken from the Schematic Editor Options (*)} & \textsf{Ref} (*) \\ 
-\texttt{PARAM} & The name of instance parameter of the device in question. & \textsf{N/A} \\
+\texttt{[VOLTAGESOURCEREF]} & {The Reference Name of a voltage source or a current probe, prefixed with a ``\texttt{V}" if taken from the Schematic Editor Options (*)} & \textsf{Ref} (*) 
 \end{tabular}
 
 \inserttip{(*) The netlister will prefix the reference name of a voltage source or current probe with ``\texttt{V}".  For instance, a DC voltage source whose reference name is set as ``V\_DS" and a current probe whose reference name is set as ``Imeter1" in the \window{Options} will appear as ``\texttt{VV\_DS}" and ``\texttt{VImeter1}" in the netlist respectively.  The \texttt[VOLTAGESOURCEREF] parameter in the \texttt{.save} statement must be in this prefixed form.}
