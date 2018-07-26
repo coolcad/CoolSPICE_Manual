@@ -1,0 +1,102 @@
+\contentsline {chapter}{\numberline {1}Introduction and Getting Started}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Introduction and Features}{1}{section.1.1}
+\contentsline {section}{\numberline {1.2}Installation and Setup}{1}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}System Requirements}{1}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Installation}{2}{subsection.1.2.2}
+\contentsline {section}{\numberline {1.3}Quick Start}{3}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Building a Circuit}{3}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Analyses, Simulation and Viewing Results}{6}{subsection.1.3.2}
+\contentsline {subsection}{\numberline {1.3.3}Example Circuits}{9}{subsection.1.3.3}
+\contentsline {subsection}{\numberline {1.3.4}Creating a New Symbol for Hierarchical Designs}{10}{subsection.1.3.4}
+\contentsline {subsection}{\numberline {1.3.5}Creating New Component Models and Libraries}{11}{subsection.1.3.5}
+\contentsline {section}{\numberline {1.4}References and Further Reading}{13}{section.1.4}
+\contentsline {chapter}{\numberline {2}The Schematic Editor}{20}{chapter.2}
+\contentsline {section}{\numberline {2.1}Drawing a Circuit}{20}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Component Placement and Options}{20}{subsection.2.1.1}
+\contentsline {subsubsection}{\numberline {2.1.1.1}Reference Name Assignment}{21}{subsubsection.2.1.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Wiring and Labels}{23}{subsection.2.1.2}
+\contentsline {subsection}{\numberline {2.1.3}Power Nets and Sources}{24}{subsection.2.1.3}
+\contentsline {subsection}{\numberline {2.1.4}Probes}{25}{subsection.2.1.4}
+\contentsline {subsection}{\numberline {2.1.5}Further Navigation and Schematic Commands}{25}{subsection.2.1.5}
+\contentsline {section}{\numberline {2.2}Multi-sheet Designs}{25}{section.2.2}
+\contentsline {section}{\numberline {2.3}Models and Libraries}{27}{section.2.3}
+\contentsline {subsection}{\numberline {2.3.1}Symbols and Hierarchical Designs}{27}{subsection.2.3.1}
+\contentsline {section}{\numberline {2.4}Netlisting and Simulation}{27}{section.2.4}
+\contentsline {subsection}{\numberline {2.4.1}OP Analysis}{27}{subsection.2.4.1}
+\contentsline {section}{\numberline {2.5}Options and Preferences}{28}{section.2.5}
+\contentsline {section}{\numberline {2.6}Schematic Editor GUI Reference}{28}{section.2.6}
+\contentsline {chapter}{\numberline {3}Plotter and Netlist Editor}{31}{chapter.3}
+\contentsline {section}{\numberline {3.1}Plotter}{31}{section.3.1}
+\contentsline {subsection}{\numberline {3.1.1}Start-up and Loading Data}{31}{subsection.3.1.1}
+\contentsline {subsection}{\numberline {3.1.2}Adding Panes and Traces, Editing Traces}{31}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.3}Navigation}{34}{subsection.3.1.3}
+\contentsline {subsection}{\numberline {3.1.4}Measurements}{35}{subsection.3.1.4}
+\contentsline {subsection}{\numberline {3.1.5}Calculator}{36}{subsection.3.1.5}
+\contentsline {subsection}{\numberline {3.1.6}Plotter Options and the Contextual Menu}{37}{subsection.3.1.6}
+\contentsline {subsection}{\numberline {3.1.7}Plotter GUI Reference}{39}{subsection.3.1.7}
+\contentsline {section}{\numberline {3.2}Netlist Editor}{39}{section.3.2}
+\contentsline {subsection}{\numberline {3.2.1}SPICE Netlist Syntax}{39}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.2}Editing and Running a Netlist}{41}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.3}Netlist Editor Options}{41}{subsection.3.2.3}
+\contentsline {chapter}{\numberline {4}SPICE Analysis Types, Commands and Options}{45}{chapter.4}
+\contentsline {section}{\numberline {4.1}SPICE Suffixes}{45}{section.4.1}
+\contentsline {section}{\numberline {4.2}Basic SPICE Analysis Types}{46}{section.4.2}
+\contentsline {subsection}{\numberline {4.2.1}The .SPICE Directive}{46}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.2}.ac (AC/Frequency Domain Analysis)}{48}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.3}.dc (DC Analysis)}{49}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.4}.op (Operating Point)}{50}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.5}.step (Parametric Analysis)}{50}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.6}.tran (Transient Analysis)}{51}{subsection.4.2.6}
+\contentsline {section}{\numberline {4.3}Initial Conditions}{52}{section.4.3}
+\contentsline {subsection}{\numberline {4.3.1}The \texttt {.ic} Statement}{52}{subsection.4.3.1}
+\contentsline {section}{\numberline {4.4}The \texttt {.meas} Statement}{53}{section.4.4}
+\contentsline {section}{\numberline {4.5}The \texttt {.param} Statement}{53}{section.4.5}
+\contentsline {subsection}{\numberline {4.5.1}\texttt {.param} Functions}{54}{subsection.4.5.1}
+\contentsline {section}{\numberline {4.6}The \texttt {.save} Statement}{56}{section.4.6}
+\contentsline {section}{\numberline {4.7}SPICE Simulation Options}{57}{section.4.7}
+\contentsline {subsection}{\numberline {4.7.1}General Options}{58}{subsection.4.7.1}
+\contentsline {subsection}{\numberline {4.7.2}DC Simulation Options}{58}{subsection.4.7.2}
+\contentsline {subsection}{\numberline {4.7.3}AC Simulation Options}{59}{subsection.4.7.3}
+\contentsline {subsection}{\numberline {4.7.4}Transient Simulation Options}{59}{subsection.4.7.4}
+\contentsline {subsection}{\numberline {4.7.5}Element-Specific Options}{60}{subsection.4.7.5}
+\contentsline {chapter}{\numberline {5}SPICE Circuit Elements and Device Models}{61}{chapter.5}
+\contentsline {section}{\numberline {5.1}SPICE Suffixes}{61}{section.5.1}
+\contentsline {section}{\numberline {5.2}SPICE Element Identifiers}{62}{section.5.2}
+\contentsline {section}{\numberline {5.3}Passive Elements}{63}{section.5.3}
+\contentsline {subsection}{\numberline {5.3.1}RXX : Resistors}{63}{subsection.5.3.1}
+\contentsline {subsection}{\numberline {5.3.2}CXX : Capacitors}{67}{subsection.5.3.2}
+\contentsline {subsection}{\numberline {5.3.3}LXX : Inductors}{72}{subsection.5.3.3}
+\contentsline {subsection}{\numberline {5.3.4}KXX : Coupled Inductors}{76}{subsection.5.3.4}
+\contentsline {section}{\numberline {5.4}Sources}{77}{section.5.4}
+\contentsline {subsection}{\numberline {5.4.1}VXX / IXX : Independent Sources}{77}{subsection.5.4.1}
+\contentsline {subsection}{\numberline {5.4.2}GXX / EXX / FXX / HXX : Linear Dependent Sources}{82}{subsection.5.4.2}
+\contentsline {subsection}{\numberline {5.4.3}BXX : Behavioral Sources}{85}{subsection.5.4.3}
+\contentsline {subsection}{\numberline {5.4.4}Special Behavioral Source Variables time, temper, temp, hertz}{88}{subsection.5.4.4}
+\contentsline {section}{\numberline {5.5}Active Elements}{89}{section.5.5}
+\contentsline {subsection}{\numberline {5.5.1}DXX : Diodes}{89}{subsection.5.5.1}
+\contentsline {subsection}{\numberline {5.5.2}QXX : BJTs}{94}{subsection.5.5.2}
+\contentsline {subsection}{\numberline {5.5.3}MXX : MOSFETs}{98}{subsection.5.5.3}
+\contentsline {subsection}{\numberline {5.5.4}JXX : JFETs}{117}{subsection.5.5.4}
+\contentsline {subsection}{\numberline {5.5.5}ZXX : MESFETs}{118}{subsection.5.5.5}
+\contentsline {section}{\numberline {5.6}Other Elements}{120}{section.5.6}
+\contentsline {subsection}{\numberline {5.6.1}SXX / WXX : Switches}{120}{subsection.5.6.1}
+\contentsline {subsection}{\numberline {5.6.2}TXX / OXX / UXX / YXX /PXX : Transmission Lines}{121}{subsection.5.6.2}
+\contentsline {section}{\numberline {5.7}Built-in Subcircuits and Behavioral Elements in CoolSPICE}{123}{section.5.7}
+\contentsline {subsection}{\numberline {5.7.1}Probes}{123}{subsection.5.7.1}
+\contentsline {subsection}{\numberline {5.7.2}The \texttt {.include} Statement}{123}{subsection.5.7.2}
+\contentsline {subsection}{\numberline {5.7.3}The \texttt {.subckt} Statement and Subcircuit Definition}{123}{subsection.5.7.3}
+\contentsline {chapter}{\numberline {6}Thermal Simulations with CoolSPICE}{124}{chapter.6}
+\contentsline {section}{\numberline {6.1}Analyses}{124}{section.6.1}
+\contentsline {subsection}{\numberline {6.1.1}Transient}{125}{subsection.6.1.1}
+\contentsline {subsection}{\numberline {6.1.2}DC Sweep}{125}{subsection.6.1.2}
+\contentsline {section}{\numberline {6.2}Devices}{126}{section.6.2}
+\contentsline {subsection}{\numberline {6.2.1}MOSFETs}{127}{subsection.6.2.1}
+\contentsline {subsection}{\numberline {6.2.2}Diodes \& Resistors}{128}{subsection.6.2.2}
+\contentsline {section}{\numberline {6.3}Netlist Syntax}{128}{section.6.3}
+\contentsline {subsection}{\numberline {6.3.1}Thermal Circuits}{129}{subsection.6.3.1}
+\contentsline {subsection}{\numberline {6.3.2}Outputting TJ/TC in PSIM}{130}{subsection.6.3.2}
+\contentsline {chapter}{\numberline {7}Quick Reference: Device Parameters and Commands}{131}{chapter.7}
+\contentsline {section}{\numberline {7.1}Circuit Elements}{131}{section.7.1}
+\contentsline {section}{\numberline {7.2}Sources}{131}{section.7.2}
+\contentsline {section}{\numberline {7.3}Probes, Analyses and SPICE Command Elements}{131}{section.7.3}
+\contentsline {section}{\numberline {7.4}References and Further Reading}{131}{section.7.4}
